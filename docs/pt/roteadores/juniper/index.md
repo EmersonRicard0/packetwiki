@@ -1,3 +1,7 @@
+---
+description: "Configuração de roteadores Juniper MX e SRX — Junos OS, BGP, MPLS e firewall para ISPs."
+---
+
 # Roteadores Juniper
 
 A Juniper Networks é amplamente usada em backbones de ISPs e redes carrier-grade, com o sistema operacional Junos conhecido pela estabilidade e flexibilidade.

@@ -1,3 +1,7 @@
+---
+description: "Instalação e configuração de Zabbix, Grafana, Prometheus e FreeRADIUS para infraestrutura de rede."
+---
+
 # Serviços de Infraestrutura
 
 Guias de instalação e operação de serviços essenciais para infraestrutura de redes — monitoramento, VPN, autenticação e mais. Todos configurados como serviços systemd para rodar em segundo plano, iniciar automaticamente e reiniciar em caso de falha.

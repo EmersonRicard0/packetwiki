@@ -1,3 +1,7 @@
+---
+description: "Documentação de roteadores Huawei, Cisco, MikroTik, Juniper e Ubiquiti — BGP, OSPF, PPPoE e mais."
+---
+
 # Roteadores
 
 Bem-vindo à seção de roteadores do PacketWiki. Aqui você encontra guias de configuração, referência de comandos e dicas de troubleshooting para roteadores de todos os principais fabricantes.

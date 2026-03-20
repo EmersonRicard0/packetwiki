@@ -1,3 +1,7 @@
+---
+description: "Switches Juniper EX e QFX — EVPN-VXLAN, BGP, Junos OS e configuração para data center."
+---
+
 # Switches Juniper
 
 A Juniper oferece switches de alto desempenho para data centers e redes corporativas, rodando Junos OS com suporte completo a EVPN-VXLAN e automação.

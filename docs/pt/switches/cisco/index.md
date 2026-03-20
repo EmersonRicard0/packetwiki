@@ -1,3 +1,7 @@
+---
+description: "Configuração de switches Cisco Catalyst 9200, 9300 e Nexus — VLANs, STP, QoS e IOS-XE."
+---
+
 # Switches Cisco
 
 A Cisco domina o mercado corporativo com uma linha completa de switches L2/L3, do acesso ao data center.

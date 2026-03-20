@@ -1,3 +1,7 @@
+---
+description: "Configuração de OLTs Huawei e Datacom — GPON, provisionamento de ONUs, DBA e MPLS para ISPs."
+---
+
 # OLT — Optical Line Terminal
 
 OLT é o equipamento central em redes GPON/XGS-PON, responsável por gerenciar dezenas ou centenas de ONUs (Optical Network Units) conectadas via fibra óptica.

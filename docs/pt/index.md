@@ -15,9 +15,6 @@ hero:
     - theme: alt
       text: Contribuir
       link: /pt/contribuir
-    - theme: alt
-      text: English
-      link: /
 
 features:
   - icon: 🌐

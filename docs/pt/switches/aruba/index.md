@@ -1,3 +1,7 @@
+---
+description: "Guias para switches HP Aruba 2530, 2930 e CX 6200 — VLANs, OSPF, AOS-CX e gerenciamento."
+---
+
 # Switches HP / Aruba
 
 A Aruba Networks (HPE) oferece switches gerenciáveis para ambientes corporativos, com forte integração ao ecossistema Aruba Central (cloud management).

@@ -1,3 +1,7 @@
+---
+description: Guia completo do MikroTik CCR — Cloud Core Router para ISPs. PPPoE, BGP, monitoramento e troubleshooting com RouterOS 6.x e 7.x.
+---
+
 # MikroTik CCR — Cloud Core Router
 
 ::: tip Versão testada

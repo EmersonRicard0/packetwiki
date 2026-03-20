@@ -1,3 +1,7 @@
+---
+description: "Guias para roteadores Ubiquiti EdgeRouter e UniFi Dream Machine — PPPoE, VLANs e configuração para WISPs."
+---
+
 # Roteadores Ubiquiti
 
 A Ubiquiti é muito popular em redes de pequenos e médios provedores (WISPs), com equipamentos custo-benefício acessível e interface gráfica intuitiva.

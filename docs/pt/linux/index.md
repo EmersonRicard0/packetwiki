@@ -1,3 +1,7 @@
+---
+description: "Servidores Linux para redes — firewall iptables/nftables, DHCP, WireGuard VPN e monitoramento."
+---
+
 # Servidores Linux
 
 Guias de configuração para servidores Linux voltados para infraestrutura de redes — serviços, firewall, monitoramento e mais.

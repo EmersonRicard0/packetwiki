@@ -1,3 +1,7 @@
+---
+description: "Configuração de switches MikroTik CRS e CSS — VLANs, trunks, MPLS e RouterOS para provedores."
+---
+
 # Switches MikroTik
 
 A MikroTik oferece switches gerenciáveis com excelente custo-benefício, muito utilizados em provedores de pequeno e médio porte no Brasil.
