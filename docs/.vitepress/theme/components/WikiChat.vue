@@ -68,7 +68,11 @@
 
           <!-- Typing indicator -->
           <div v-if="isLoading" class="msg-row assistant">
-            <div class="msg-avatar">🤖</div>
+            <div class="msg-avatar">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+              <path d="M12 2L14.4 9.6H22.4L16 14.2L18.4 21.8L12 17.2L5.6 21.8L8 14.2L1.6 9.6H9.6L12 2Z" fill="#0284c7"/>
+            </svg>
+          </div>
             <div class="msg-bubble typing">
               <span></span><span></span><span></span>
             </div>
@@ -232,7 +236,12 @@ OUTROS:
 Quando citar uma página, use o formato markdown de link assim:
 [Texto do link](/pt/caminho/da/pagina)
 
-Seja direto e útil. Máximo 4 parágrafos por resposta.`
+REGRA IMPORTANTE — respostas longas:
+Se a resposta exigir muitos comandos, configurações detalhadas ou mais de 3 passos, NÃO escreva tudo no chat.
+Em vez disso, faça um resumo curto (2-3 linhas) e direcione o usuário para a página correta com uma frase como:
+"Para o guia completo com todos os comandos, acesse: [Nome da Página](/pt/caminho)"
+
+Seja direto e útil. Máximo 3 parágrafos curtos por resposta.`
 
 const messages = ref([
   {
