@@ -259,6 +259,14 @@ async function send() {
   const text = input.value.trim()
   if (!text || isLoading.value) return
 
+  if (!GEMINI_KEY) {
+    messages.value.push({
+      role: 'assistant',
+      content: '⚠️ Chave da API não configurada. Adicione `VITE_GEMINI_KEY` nas variáveis de ambiente.',
+    })
+    return
+  }
+
   input.value = ''
   messages.value.push({ role: 'user', content: text })
   history.value.push({ role: 'user', parts: [{ text }] })
@@ -267,7 +275,7 @@ async function send() {
 
   try {
     const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -283,8 +291,14 @@ async function send() {
     )
 
     const data = await res.json()
+
+    if (!res.ok) {
+      const errMsg = data?.error?.message || `Erro ${res.status}`
+      throw new Error(errMsg)
+    }
+
     const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text
-      || 'Desculpe, não consegui gerar uma resposta. Tente novamente.'
+    if (!reply) throw new Error('Resposta vazia da API')
 
     messages.value.push({ role: 'assistant', content: reply })
     history.value.push({ role: 'model', parts: [{ text: reply }] })
@@ -293,7 +307,7 @@ async function send() {
   } catch (e) {
     messages.value.push({
       role: 'assistant',
-      content: '⚠️ Erro ao conectar com o assistente. Verifique sua conexão e tente novamente.',
+      content: `⚠️ ${e.message || 'Erro ao conectar. Tente novamente.'}`,
     })
   } finally {
     isLoading.value = false
