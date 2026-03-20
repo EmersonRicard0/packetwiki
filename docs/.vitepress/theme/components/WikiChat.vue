@@ -1,5 +1,17 @@
 <template>
   <div class="chat-root">
+    <!-- Balão de fala -->
+    <Transition name="bubble">
+      <div
+        v-if="showBubble && !isOpen"
+        class="chat-bubble"
+        @click="toggle"
+      >
+        {{ bubbleText }}
+        <div class="bubble-tail"></div>
+      </div>
+    </Transition>
+
     <!-- Botão flutuante -->
     <button
       class="chat-fab"
@@ -7,7 +19,7 @@
       @click="toggle"
       :aria-label="isOpen ? 'Fechar assistente' : 'Abrir assistente'"
     >
-      <span v-if="!isOpen" class="fab-icon">🤖</span>
+      <span v-if="!isOpen" class="fab-icon">📡</span>
       <span v-else class="fab-icon fab-close">✕</span>
       <span v-if="!isOpen && unread > 0" class="fab-badge">{{ unread }}</span>
     </button>
@@ -18,7 +30,7 @@
         <!-- Header -->
         <div class="chat-header">
           <div class="chat-header-info">
-            <div class="chat-avatar">🤖</div>
+            <div class="chat-avatar">📡</div>
             <div>
               <div class="chat-name">PacketBot</div>
               <div class="chat-status">
@@ -219,6 +231,18 @@ const messages = ref([
 
 const history = ref([])
 
+const showBubble = ref(false)
+const bubbleTexts = [
+  'Em que posso ajudar hoje? 😊',
+  'Tem alguma dúvida sobre redes?',
+  'Procurando alguma configuração?',
+  'Posso te guiar pelas páginas do wiki!',
+  'BGP, OSPF, GPON... é só perguntar! 📡',
+]
+const bubbleText = ref(bubbleTexts[0])
+let bubbleIndex = 0
+let bubbleTimer = null
+
 function renderMarkdown(text) {
   return text
     .replace(/&/g, '&amp;')
@@ -316,11 +340,40 @@ async function send() {
   }
 }
 
+function scheduleBubble() {
+  bubbleTimer = setTimeout(() => {
+    if (!isOpen.value) {
+      bubbleIndex = (bubbleIndex + 1) % bubbleTexts.length
+      bubbleText.value = bubbleTexts[bubbleIndex]
+      showBubble.value = true
+      setTimeout(() => {
+        showBubble.value = false
+        scheduleBubble()
+      }, 4000)
+    } else {
+      scheduleBubble()
+    }
+  }, 12000 + Math.random() * 8000)
+}
+
 onMounted(() => {
   window.__chatNav = (path) => {
     router.go(path)
     isOpen.value = false
   }
+
+  // Mostra balão após 3s da primeira vez
+  setTimeout(() => {
+    showBubble.value = true
+    setTimeout(() => {
+      showBubble.value = false
+      scheduleBubble()
+    }, 5000)
+  }, 3000)
+})
+
+onUnmounted(() => {
+  clearTimeout(bubbleTimer)
 })
 </script>
 
@@ -525,6 +578,43 @@ onMounted(() => {
 }
 .chat-send:hover:not(:disabled) { opacity: 0.88; transform: scale(1.05); }
 .chat-send:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── Speech Bubble ── */
+.chat-bubble {
+  position: fixed;
+  bottom: 86px;
+  right: 84px;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-border);
+  border-radius: 12px 12px 2px 12px;
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--vp-c-text-1);
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  cursor: pointer;
+  z-index: 199;
+  max-width: 200px;
+  white-space: normal;
+  line-height: 1.4;
+}
+.bubble-tail {
+  position: absolute;
+  bottom: -6px;
+  right: 12px;
+  width: 12px;
+  height: 12px;
+  background: var(--vp-c-bg);
+  border-right: 1px solid var(--vp-c-border);
+  border-bottom: 1px solid var(--vp-c-border);
+  transform: rotate(45deg);
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+.bubble-enter-active { animation: bubbleIn 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+.bubble-leave-active { animation: bubbleOut 0.2s ease-in forwards; }
+@keyframes bubbleIn  { from { opacity:0; transform:scale(0.8) translateY(6px); } to { opacity:1; transform:scale(1) translateY(0); } }
+@keyframes bubbleOut { from { opacity:1; transform:scale(1); } to { opacity:0; transform:scale(0.85) translateY(4px); } }
 
 /* ── Transition ── */
 .chat-slide-enter-active { animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
