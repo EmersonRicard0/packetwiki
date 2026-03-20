@@ -1,0 +1,20 @@
+node_modules/
+docs/.vitepress/dist/
+docs/.vitepress/cache/
+.DS_Store
+*.local
+
+# Variáveis de ambiente — NUNCA commitar o .env real
+.env
+.env.local
+.env.*.local
+
+# Arquivos de metadados do Windows
+*.Zone.Identifier
+Thumbs.db
+
+# Configurações locais do Claude
+.claude/
+
+# PDFs — manter só localmente
+pdfs/

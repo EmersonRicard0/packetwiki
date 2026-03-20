@@ -1,0 +1,14 @@
+{
+  "name": "packetwiki",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "PacketWiki - The open community wiki for networking and Linux servers",
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "devDependencies": {
+    "vitepress": "^1.5.0"
+  }
+}

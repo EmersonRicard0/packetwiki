@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <defs>
+    <linearGradient id="lineBlue" x1="0" y1="0" x2="400" y2="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0.7"/>
+    </linearGradient>
+    <radialGradient id="glowCenter" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="nodeGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background glow -->
+  <circle cx="200" cy="200" r="180" fill="url(#glowCenter)"/>
+
+  <!-- ── Outer ring connections ── -->
+  <line x1="200" y1="40"  x2="340" y2="120" stroke="url(#lineBlue)" stroke-width="1.5" stroke-opacity="0.4"/>
+  <line x1="340" y1="120" x2="340" y2="280" stroke="url(#lineBlue)" stroke-width="1.5" stroke-opacity="0.4"/>
+  <line x1="340" y1="280" x2="200" y2="360" stroke="url(#lineBlue)" stroke-width="1.5" stroke-opacity="0.4"/>
+  <line x1="200" y1="360" x2="60"  y2="280" stroke="url(#lineBlue)" stroke-width="1.5" stroke-opacity="0.4"/>
+  <line x1="60"  y1="280" x2="60"  y2="120" stroke="url(#lineBlue)" stroke-width="1.5" stroke-opacity="0.4"/>
+  <line x1="60"  y1="120" x2="200" y2="40"  stroke="url(#lineBlue)" stroke-width="1.5" stroke-opacity="0.4"/>
+
+  <!-- ── Inner connections to center ── -->
+  <line x1="200" y1="200" x2="200" y2="40"  stroke="#0ea5e9" stroke-width="1.5" stroke-opacity="0.35"/>
+  <line x1="200" y1="200" x2="340" y2="120" stroke="#0ea5e9" stroke-width="1.5" stroke-opacity="0.35"/>
+  <line x1="200" y1="200" x2="340" y2="280" stroke="#0ea5e9" stroke-width="1.5" stroke-opacity="0.35"/>
+  <line x1="200" y1="200" x2="200" y2="360" stroke="#10b981" stroke-width="1.5" stroke-opacity="0.35"/>
+  <line x1="200" y1="200" x2="60"  y2="280" stroke="#10b981" stroke-width="1.5" stroke-opacity="0.35"/>
+  <line x1="200" y1="200" x2="60"  y2="120" stroke="#0ea5e9" stroke-width="1.5" stroke-opacity="0.35"/>
+
+  <!-- ── Cross connections ── -->
+  <line x1="200" y1="40"  x2="340" y2="280" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.15"/>
+  <line x1="340" y1="120" x2="60"  y2="280" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.15"/>
+  <line x1="60"  y1="120" x2="340" y2="280" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.15"/>
+
+  <!-- ── Outer nodes ── -->
+  <!-- Top -->
+  <circle cx="200" cy="40"  r="14" fill="#0f172a" stroke="#0ea5e9" stroke-width="2.5"/>
+  <circle cx="200" cy="40"  r="6"  fill="#38bdf8" filter="url(#softGlow)"/>
+  <!-- Top-right -->
+  <circle cx="340" cy="120" r="12" fill="#0f172a" stroke="#3b82f6" stroke-width="2"/>
+  <circle cx="340" cy="120" r="5"  fill="#7dd3fc"/>
+  <!-- Bottom-right -->
+  <circle cx="340" cy="280" r="12" fill="#0f172a" stroke="#3b82f6" stroke-width="2"/>
+  <circle cx="340" cy="280" r="5"  fill="#7dd3fc"/>
+  <!-- Bottom -->
+  <circle cx="200" cy="360" r="14" fill="#0f172a" stroke="#10b981" stroke-width="2.5"/>
+  <circle cx="200" cy="360" r="6"  fill="#34d399" filter="url(#softGlow)"/>
+  <!-- Bottom-left -->
+  <circle cx="60"  cy="280" r="12" fill="#0f172a" stroke="#10b981" stroke-width="2"/>
+  <circle cx="60"  cy="280" r="5"  fill="#6ee7b7"/>
+  <!-- Top-left -->
+  <circle cx="60"  cy="120" r="12" fill="#0f172a" stroke="#3b82f6" stroke-width="2"/>
+  <circle cx="60"  cy="120" r="5"  fill="#7dd3fc"/>
+
+  <!-- ── Mid-ring nodes ── -->
+  <circle cx="200" cy="110" r="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.8"/>
+  <circle cx="200" cy="110" r="3" fill="#bae6fd"/>
+  <circle cx="290" cy="165" r="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.8"/>
+  <circle cx="290" cy="165" r="3" fill="#bae6fd"/>
+  <circle cx="290" cy="235" r="8" fill="#0f172a" stroke="#6ee7b7" stroke-width="1.8"/>
+  <circle cx="290" cy="235" r="3" fill="#a7f3d0"/>
+  <circle cx="200" cy="290" r="8" fill="#0f172a" stroke="#34d399" stroke-width="1.8"/>
+  <circle cx="200" cy="290" r="3" fill="#a7f3d0"/>
+  <circle cx="110" cy="235" r="8" fill="#0f172a" stroke="#6ee7b7" stroke-width="1.8"/>
+  <circle cx="110" cy="235" r="3" fill="#a7f3d0"/>
+  <circle cx="110" cy="165" r="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.8"/>
+  <circle cx="110" cy="165" r="3" fill="#bae6fd"/>
+
+  <!-- ── Center node (main router) ── -->
+  <circle cx="200" cy="200" r="34" fill="#0f172a" stroke="#0ea5e9" stroke-width="2.5" filter="url(#nodeGlow)"/>
+  <circle cx="200" cy="200" r="24" fill="#0c1a2e" stroke="#38bdf8" stroke-width="1.5"/>
+  <!-- Router icon inside center -->
+  <rect x="188" y="192" width="24" height="16" rx="3" fill="#0ea5e9" fill-opacity="0.9"/>
+  <circle cx="193" cy="200" r="2" fill="#0f172a"/>
+  <circle cx="200" cy="200" r="2" fill="#0f172a"/>
+  <circle cx="207" cy="200" r="2" fill="#0f172a"/>
+  <line x1="200" y1="188" x2="200" y2="184" stroke="#38bdf8" stroke-width="1.5"/>
+  <line x1="200" y1="208" x2="200" y2="212" stroke="#38bdf8" stroke-width="1.5"/>
+  <line x1="188" y1="200" x2="184" y2="200" stroke="#38bdf8" stroke-width="1.5"/>
+  <line x1="212" y1="200" x2="216" y2="200" stroke="#38bdf8" stroke-width="1.5"/>
+
+  <!-- ── Packet dots (animated feel via opacity) ── -->
+  <circle cx="270" cy="97"  r="3.5" fill="#0ea5e9" opacity="0.8"/>
+  <circle cx="145" cy="330" r="3.5" fill="#10b981" opacity="0.8"/>
+  <circle cx="350" cy="200" r="3.5" fill="#38bdf8" opacity="0.6"/>
+  <circle cx="50"  cy="200" r="3.5" fill="#34d399" opacity="0.6"/>
+</svg>
