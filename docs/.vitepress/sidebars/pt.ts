@@ -7,46 +7,6 @@ export const ptSidebar = {
       ],
     },
     {
-      text: 'Cisco',
-      collapsed: true,
-      items: [
-        { text: 'Visão Geral', link: '/pt/roteadores/cisco/' },
-        { text: 'ISR 4000', link: '/pt/roteadores/cisco/isr-4000' },
-        { text: 'ASR 1000', link: '/pt/roteadores/cisco/asr-1000' },
-        { text: 'Catalyst 8000', link: '/pt/roteadores/cisco/catalyst-8000' },
-      ],
-    },
-    {
-      text: 'MikroTik',
-      collapsed: false,
-      items: [
-        { text: 'Visão Geral', link: '/pt/roteadores/mikrotik/' },
-        { text: 'hEX Series', link: '/pt/roteadores/mikrotik/hex-series' },
-        { text: 'CCR (Cloud Core Router)', link: '/pt/roteadores/mikrotik/ccr' },
-        { text: 'RB4011', link: '/pt/roteadores/mikrotik/rb4011' },
-        { text: 'BGP no RouterOS', link: '/pt/roteadores/mikrotik/bgp' },
-        { text: 'OSPF no RouterOS', link: '/pt/roteadores/mikrotik/ospf' },
-      ],
-    },
-    {
-      text: 'Juniper',
-      collapsed: true,
-      items: [
-        { text: 'Visão Geral', link: '/pt/roteadores/juniper/' },
-        { text: 'SRX Series', link: '/pt/roteadores/juniper/srx' },
-        { text: 'MX Series', link: '/pt/roteadores/juniper/mx' },
-      ],
-    },
-    {
-      text: 'Ubiquiti',
-      collapsed: true,
-      items: [
-        { text: 'Visão Geral', link: '/pt/roteadores/ubiquiti/' },
-        { text: 'UniFi Dream Machine', link: '/pt/roteadores/ubiquiti/udm' },
-        { text: 'EdgeRouter', link: '/pt/roteadores/ubiquiti/edgerouter' },
-      ],
-    },
-    {
       text: 'Huawei',
       collapsed: false,
       items: [
@@ -58,8 +18,8 @@ export const ptSidebar = {
         { text: 'SNMP', link: '/pt/roteadores/huawei/snmp' },
         { text: 'Backup', link: '/pt/roteadores/huawei/backup' },
         { text: 'Atualização de Firmware', link: '/pt/roteadores/huawei/update' },
-        { text: 'Troubleshooting', link: '/pt/roteadores/huawei/troubleshooting' },
         { text: 'Limpar Contadores', link: '/pt/roteadores/huawei/limpar-contadores' },
+        { text: 'Troubleshooting', link: '/pt/roteadores/huawei/troubleshooting' },
         {
           text: 'BNG / PPPoE',
           collapsed: false,
@@ -77,6 +37,37 @@ export const ptSidebar = {
         },
       ],
     },
+    {
+      text: 'MikroTik',
+      collapsed: false,
+      items: [
+        { text: 'Visão Geral', link: '/pt/roteadores/mikrotik/' },
+        { text: 'CCR (Cloud Core Router)', link: '/pt/roteadores/mikrotik/ccr' },
+        { text: 'BGP no RouterOS', link: '/pt/roteadores/mikrotik/bgp' },
+        { text: 'OSPF no RouterOS', link: '/pt/roteadores/mikrotik/ospf' },
+      ],
+    },
+    {
+      text: 'Cisco',
+      collapsed: true,
+      items: [
+        { text: 'Visão Geral', link: '/pt/roteadores/cisco/' },
+      ],
+    },
+    {
+      text: 'Juniper',
+      collapsed: true,
+      items: [
+        { text: 'Visão Geral', link: '/pt/roteadores/juniper/' },
+      ],
+    },
+    {
+      text: 'Ubiquiti',
+      collapsed: true,
+      items: [
+        { text: 'Visão Geral', link: '/pt/roteadores/ubiquiti/' },
+      ],
+    },
   ],
 
   '/pt/switches/': [
@@ -84,36 +75,6 @@ export const ptSidebar = {
       text: 'Switches',
       items: [
         { text: 'Visão Geral', link: '/pt/switches/' },
-      ],
-    },
-    {
-      text: 'Cisco',
-      collapsed: true,
-      items: [
-        { text: 'Visão Geral', link: '/pt/switches/cisco/' },
-        { text: 'Catalyst 2960', link: '/pt/switches/cisco/catalyst-2960' },
-        { text: 'Catalyst 3650/3850', link: '/pt/switches/cisco/catalyst-3650' },
-        { text: 'Catalyst 9200/9300', link: '/pt/switches/cisco/catalyst-9200' },
-        { text: 'Nexus 9000', link: '/pt/switches/cisco/nexus-9000' },
-      ],
-    },
-    {
-      text: 'HP / Aruba',
-      collapsed: true,
-      items: [
-        { text: 'Visão Geral', link: '/pt/switches/aruba/' },
-        { text: 'Aruba 2530', link: '/pt/switches/aruba/2530' },
-        { text: 'Aruba 2930', link: '/pt/switches/aruba/2930' },
-        { text: 'Aruba CX 6200', link: '/pt/switches/aruba/cx-6200' },
-      ],
-    },
-    {
-      text: 'MikroTik',
-      collapsed: true,
-      items: [
-        { text: 'Visão Geral', link: '/pt/switches/mikrotik/' },
-        { text: 'CRS Series', link: '/pt/switches/mikrotik/crs' },
-        { text: 'CSS Series', link: '/pt/switches/mikrotik/css' },
       ],
     },
     {
@@ -136,15 +97,6 @@ export const ptSidebar = {
       ],
     },
     {
-      text: 'Juniper',
-      collapsed: true,
-      items: [
-        { text: 'Visão Geral', link: '/pt/switches/juniper/' },
-        { text: 'EX Series', link: '/pt/switches/juniper/ex' },
-        { text: 'QFX Series', link: '/pt/switches/juniper/qfx' },
-      ],
-    },
-    {
       text: 'Datacom',
       collapsed: false,
       items: [
@@ -154,6 +106,35 @@ export const ptSidebar = {
         { text: 'MPLS e L2VPN', link: '/pt/switches/datacom/mpls' },
         { text: 'QoS', link: '/pt/switches/datacom/qos' },
         { text: 'Segurança', link: '/pt/switches/datacom/seguranca' },
+      ],
+    },
+    {
+      text: 'Cisco',
+      collapsed: true,
+      items: [
+        { text: 'Visão Geral', link: '/pt/switches/cisco/' },
+        { text: 'Catalyst 9200/9300', link: '/pt/switches/cisco/catalyst-9200' },
+      ],
+    },
+    {
+      text: 'HP / Aruba',
+      collapsed: true,
+      items: [
+        { text: 'Visão Geral', link: '/pt/switches/aruba/' },
+      ],
+    },
+    {
+      text: 'MikroTik',
+      collapsed: true,
+      items: [
+        { text: 'Visão Geral', link: '/pt/switches/mikrotik/' },
+      ],
+    },
+    {
+      text: 'Juniper',
+      collapsed: true,
+      items: [
+        { text: 'Visão Geral', link: '/pt/switches/juniper/' },
       ],
     },
   ],
@@ -227,14 +208,11 @@ export const ptSidebar = {
       ],
     },
     {
-      text: 'Distribuições',
+      text: 'Firewall',
       collapsed: false,
       items: [
-        { text: 'Ubuntu Server', link: '/pt/linux/ubuntu/' },
-        { text: 'Debian', link: '/pt/linux/debian/' },
-        { text: 'Rocky Linux', link: '/pt/linux/rocky/' },
-        { text: 'AlmaLinux', link: '/pt/linux/alma/' },
-        { text: 'CentOS Stream', link: '/pt/linux/centos/' },
+        { text: 'iptables', link: '/pt/linux/firewall/iptables' },
+        { text: 'nftables', link: '/pt/linux/firewall/nftables' },
       ],
     },
     {
@@ -242,31 +220,22 @@ export const ptSidebar = {
       collapsed: false,
       items: [
         { text: 'DHCP (isc-dhcp / Kea)', link: '/pt/linux/servicos/dhcp' },
-        { text: 'DNS (BIND9 / Unbound)', link: '/pt/linux/servicos/dns' },
-        { text: 'NTP (chrony / ntpd)', link: '/pt/linux/servicos/ntp' },
         { text: 'VPN (WireGuard)', link: '/pt/linux/servicos/wireguard' },
-        { text: 'VPN (OpenVPN)', link: '/pt/linux/servicos/openvpn' },
-        { text: 'Proxy (Squid)', link: '/pt/linux/servicos/squid' },
-      ],
-    },
-    {
-      text: 'Firewall',
-      collapsed: true,
-      items: [
-        { text: 'iptables', link: '/pt/linux/firewall/iptables' },
-        { text: 'nftables', link: '/pt/linux/firewall/nftables' },
-        { text: 'UFW', link: '/pt/linux/firewall/ufw' },
-        { text: 'firewalld', link: '/pt/linux/firewall/firewalld' },
       ],
     },
     {
       text: 'Monitoramento',
-      collapsed: true,
+      collapsed: false,
       items: [
-        { text: 'Zabbix', link: '/pt/linux/monitoramento/zabbix' },
+        { text: 'Zabbix Agent', link: '/pt/linux/monitoramento/zabbix' },
         { text: 'Grafana + Prometheus', link: '/pt/linux/monitoramento/grafana' },
-        { text: 'Netdata', link: '/pt/linux/monitoramento/netdata' },
-        { text: 'SNMP', link: '/pt/linux/monitoramento/snmp' },
+      ],
+    },
+    {
+      text: 'VPN',
+      collapsed: false,
+      items: [
+        { text: 'WireGuard', link: '/pt/linux/servicos/wireguard' },
       ],
     },
   ],
