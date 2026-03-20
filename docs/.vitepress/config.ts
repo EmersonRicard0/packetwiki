@@ -36,6 +36,7 @@ export default defineConfig({
       { text: 'Serviços', link: '/pt/servicos/' },
       { text: 'Glossário', link: '/pt/glossario' },
       { text: 'Contribuir', link: '/pt/contribuir' },
+      { text: 'Sobre', link: '/pt/sobre' },
     ],
 
     sidebar: ptSidebar,
