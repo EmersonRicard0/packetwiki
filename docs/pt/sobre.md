@@ -23,12 +23,9 @@ layout: page
   width: 90px;
   height: 90px;
   border-radius: 50%;
-  background: var(--vp-c-brand-1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem;
+  object-fit: cover;
   flex-shrink: 0;
+  border: 3px solid var(--vp-c-brand-1);
 }
 .perfil-info h1 {
   font-size: 1.6rem;
@@ -131,7 +128,7 @@ layout: page
 <div class="sobre-wrapper">
 
 <div class="perfil">
-  <div class="perfil-avatar">👨‍💻</div>
+  <img class="perfil-avatar" src="/emerson.jpg" alt="Emerson Silva Ricardo" />
   <div class="perfil-info">
     <h1>Emerson Silva Ricardo</h1>
     <div class="perfil-cargo">Dev · Analista de Redes</div>
