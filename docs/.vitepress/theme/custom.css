@@ -25,7 +25,7 @@
   --vp-home-hero-name-background: linear-gradient(135deg, #0284c7 0%, #10b981 100%);
   --vp-home-hero-image-background-image: radial-gradient(
     ellipse 65% 65% at 50% 50%,
-    rgba(2, 132, 199, 0.2) 0%,
+    rgba(2, 132, 199, 0.18) 0%,
     transparent 70%
   );
   --vp-home-hero-image-filter: blur(52px);
@@ -48,18 +48,169 @@
   --vp-c-divider: rgba(56, 189, 248, 0.1);
 }
 
-/* ── Nav: efeito glassmorphism ── */
+/* ════════════════════════════════════════
+   NAV
+════════════════════════════════════════ */
+
+/* Glassmorphism no nav */
 .VPNav {
-  backdrop-filter: blur(14px) saturate(180%);
-  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
   border-bottom: 1px solid var(--vp-c-divider) !important;
 }
 
 .dark .VPNav {
-  background: rgba(13, 17, 23, 0.82) !important;
+  background: rgba(13, 17, 23, 0.85) !important;
 }
 
-/* ── Sidebar: linha lateral colorida no item ativo ── */
+/* Logo: tamanho ideal no nav */
+.VPNavBarTitle .logo {
+  height: 28px !important;
+  width: 28px !important;
+  margin-right: 2px;
+}
+
+/* Nome do site no nav: gradiente sutil */
+.VPNavBarTitle .title {
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  background: linear-gradient(135deg, #0284c7, #10b981);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.01em;
+}
+
+.dark .VPNavBarTitle .title {
+  background: linear-gradient(135deg, #38bdf8, #34d399);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Nav links: hover suave */
+.VPNavBarMenu .VPNavBarMenuLink:hover {
+  color: var(--vp-c-brand-1) !important;
+}
+
+/* ════════════════════════════════════════
+   HERO
+════════════════════════════════════════ */
+
+.VPHero {
+  padding-top: 64px !important;
+  padding-bottom: 48px !important;
+}
+
+.VPHero .name {
+  font-size: 3.6rem !important;
+  letter-spacing: -0.03em !important;
+}
+
+.VPHero .text {
+  font-size: 2rem !important;
+  font-weight: 500 !important;
+  opacity: 0.85;
+  letter-spacing: -0.01em;
+}
+
+.VPHero .tagline {
+  font-size: 1.05rem !important;
+  opacity: 0.72;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+/* Hero image: animação suave */
+.VPHero .image-src {
+  animation: floatHero 6s ease-in-out infinite;
+  max-width: 300px !important;
+}
+
+@keyframes floatHero {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-12px) rotate(1deg); }
+}
+
+/* ════════════════════════════════════════
+   BOTÕES HERO
+════════════════════════════════════════ */
+
+.VPButton.medium.brand {
+  background: linear-gradient(135deg, #0284c7, #0369a1) !important;
+  border: none !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+  transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s !important;
+}
+
+.VPButton.medium.brand:hover {
+  opacity: 0.9 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45) !important;
+}
+
+.VPButton.medium.alt {
+  border: 1.5px solid var(--vp-c-brand-1) !important;
+  color: var(--vp-c-brand-1) !important;
+  font-weight: 500 !important;
+  transition: background 0.2s, transform 0.2s !important;
+}
+
+.VPButton.medium.alt:hover {
+  background: var(--vp-c-brand-soft) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* ════════════════════════════════════════
+   FEATURE CARDS
+════════════════════════════════════════ */
+
+.VPFeatures {
+  padding-top: 8px !important;
+}
+
+.VPFeature {
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease !important;
+  border: 1px solid var(--vp-c-divider) !important;
+  border-radius: 14px !important;
+}
+
+.VPFeature:hover {
+  transform: translateY(-5px) !important;
+  border-color: var(--vp-c-brand-1) !important;
+  box-shadow: 0 12px 32px rgba(2, 132, 199, 0.13) !important;
+}
+
+.dark .VPFeature:hover {
+  box-shadow: 0 12px 32px rgba(56, 189, 248, 0.11) !important;
+}
+
+.VPFeature .icon {
+  font-size: 2rem !important;
+  padding: 10px !important;
+  background: var(--vp-c-brand-soft) !important;
+  border-radius: 10px !important;
+  display: inline-flex !important;
+  line-height: 1 !important;
+}
+
+.VPFeature .title {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+}
+
+.VPFeature .details {
+  font-size: 0.875rem !important;
+  opacity: 0.78;
+  line-height: 1.6;
+}
+
+/* ════════════════════════════════════════
+   SIDEBAR
+════════════════════════════════════════ */
+
 .VPSidebarItem.is-active > .item .link {
   color: var(--vp-c-brand-1) !important;
   font-weight: 600;
@@ -71,75 +222,11 @@
   margin-left: -12px;
 }
 
-/* ── Feature cards: hover animado ── */
-.VPFeature {
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease !important;
-  border: 1px solid var(--vp-c-divider) !important;
-  border-radius: 14px !important;
-}
+/* ════════════════════════════════════════
+   CONTEÚDO DOC
+════════════════════════════════════════ */
 
-.VPFeature:hover {
-  transform: translateY(-5px) !important;
-  border-color: var(--vp-c-brand-1) !important;
-  box-shadow: 0 14px 36px rgba(2, 132, 199, 0.14) !important;
-}
-
-.dark .VPFeature:hover {
-  box-shadow: 0 14px 36px rgba(56, 189, 248, 0.12) !important;
-}
-
-/* ── Feature icon: maior e com fundo ── */
-.VPFeature .icon {
-  font-size: 2.2rem !important;
-  padding: 10px !important;
-  background: var(--vp-c-brand-soft) !important;
-  border-radius: 10px !important;
-  display: inline-flex !important;
-  line-height: 1 !important;
-}
-
-/* ── Hero image: tamanho e animação ── */
-.VPHero .image-container {
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-.VPHero .image-src {
-  animation: floatHero 5s ease-in-out infinite;
-  max-width: 320px !important;
-}
-
-@keyframes floatHero {
-  0%, 100% { transform: translateY(0px);   }
-  50%       { transform: translateY(-10px); }
-}
-
-/* ── Botões hero: estilo aprimorado ── */
-.VPButton.medium.brand {
-  background: linear-gradient(135deg, #0284c7, #0369a1) !important;
-  border: none !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.02em;
-  transition: opacity 0.2s, transform 0.2s !important;
-}
-
-.VPButton.medium.brand:hover {
-  opacity: 0.88 !important;
-  transform: translateY(-2px) !important;
-}
-
-.VPButton.medium.alt {
-  border: 1.5px solid var(--vp-c-brand-1) !important;
-  color: var(--vp-c-brand-1) !important;
-  transition: background 0.2s, transform 0.2s !important;
-}
-
-.VPButton.medium.alt:hover {
-  background: var(--vp-c-brand-soft) !important;
-  transform: translateY(-2px) !important;
-}
-
-/* ── Código: bloco mais sofisticado ── */
+/* Código em bloco */
 div[class*='language-'] {
   border-radius: 10px !important;
   border: 1px solid var(--vp-c-divider) !important;
@@ -150,16 +237,16 @@ div[class*='language-'] {
   border-color: rgba(56, 189, 248, 0.12) !important;
 }
 
-/* ── Inline code ── */
+/* Código inline */
 :not(pre) > code {
   color: var(--vp-c-brand-1) !important;
   background: var(--vp-c-brand-soft) !important;
   border-radius: 5px !important;
   padding: 1px 6px !important;
-  font-size: 0.88em !important;
+  font-size: 0.87em !important;
 }
 
-/* ── Tabelas: cantos arredondados e header colorido ── */
+/* Tabelas */
 .vp-doc table {
   border-radius: 10px;
   overflow: hidden;
@@ -180,7 +267,7 @@ div[class*='language-'] {
   background: var(--vp-c-bg-soft);
 }
 
-/* ── Custom blocks: borda com brand color ── */
+/* Custom blocks */
 .custom-block.tip {
   border-color: var(--vp-c-brand-1) !important;
 }
@@ -193,7 +280,7 @@ div[class*='language-'] {
   border-color: #f59e0b !important;
 }
 
-/* ── Headings: decoração sutil ── */
+/* Headings */
 .vp-doc h2 {
   border-top: 1px solid var(--vp-c-divider);
   padding-top: 1.2rem;
@@ -205,7 +292,10 @@ div[class*='language-'] {
   color: var(--vp-c-brand-1);
 }
 
-/* ── Doc footer (prev/next): estilo aprimorado ── */
+/* ════════════════════════════════════════
+   FOOTER / NAV DOC
+════════════════════════════════════════ */
+
 .VPDocFooter .pager-link {
   border-radius: 10px !important;
   transition: border-color 0.2s, background 0.2s !important;
@@ -216,40 +306,36 @@ div[class*='language-'] {
   background: var(--vp-c-brand-soft) !important;
 }
 
-/* ── Footer ── */
 .VPFooter {
   border-top: 1px solid var(--vp-c-divider) !important;
 }
 
-/* ── Smooth scroll ── */
-html {
-  scroll-behavior: smooth;
-}
+/* ════════════════════════════════════════
+   SCROLLBAR
+════════════════════════════════════════ */
 
-/* ── Print — impressão limpa para uso em campo ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--vp-c-bg-soft); }
+::-webkit-scrollbar-thumb { background: var(--vp-c-brand-3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--vp-c-brand-1); }
+
+/* ════════════════════════════════════════
+   MISC
+════════════════════════════════════════ */
+
+html { scroll-behavior: smooth; }
+
+/* ════════════════════════════════════════
+   IMPRESSÃO
+════════════════════════════════════════ */
+
 @media print {
-  .VPNav,
-  .VPSidebar,
-  .VPDocFooter,
-  .VPFooter,
-  .edit-link,
-  .last-updated,
-  .VPLocalSearchBox {
-    display: none !important;
-  }
+  .VPNav, .VPSidebar, .VPDocFooter, .VPFooter,
+  .edit-link, .last-updated, .VPLocalSearchBox { display: none !important; }
 
-  .VPDoc {
-    padding: 0 !important;
-    margin: 0 auto !important;
-    max-width: 100% !important;
-  }
+  .VPDoc { padding: 0 !important; margin: 0 auto !important; max-width: 100% !important; }
 
-  .vp-doc {
-    font-size: 11pt;
-    line-height: 1.5;
-    color: #000 !important;
-  }
-
+  .vp-doc { font-size: 11pt; line-height: 1.5; color: #000 !important; }
   .vp-doc h1 { font-size: 18pt; page-break-after: avoid; }
   .vp-doc h2 { font-size: 14pt; page-break-after: avoid; margin-top: 1.5rem; }
   .vp-doc h3 { font-size: 12pt; page-break-after: avoid; }
@@ -260,50 +346,8 @@ html {
     page-break-inside: avoid;
   }
 
-  div[class*='language-'] code {
-    color: #000 !important;
-    font-size: 9pt;
-  }
-
-  .vp-doc table {
-    page-break-inside: avoid;
-    font-size: 10pt;
-  }
-
-  .custom-block {
-    border: 1px solid #ccc !important;
-    page-break-inside: avoid;
-  }
-
-  a[href]::after {
-    content: none !important;
-  }
-}
-
-/* ── Scrollbar customizada (Webkit) ── */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--vp-c-bg-soft);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--vp-c-brand-3);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--vp-c-brand-1);
-}
-
-/* ── Home hero: ajuste de espaçamento ── */
-.VPHero {
-  padding-top: 60px !important;
-}
-
-.VPHero .tagline {
-  font-size: 1.1rem !important;
-  opacity: 0.8;
-  max-width: 500px;
-  margin: 0 auto;
+  div[class*='language-'] code { color: #000 !important; font-size: 9pt; }
+  .vp-doc table { page-break-inside: avoid; font-size: 10pt; }
+  .custom-block { border: 1px solid #ccc !important; page-break-inside: avoid; }
+  a[href]::after { content: none !important; }
 }
