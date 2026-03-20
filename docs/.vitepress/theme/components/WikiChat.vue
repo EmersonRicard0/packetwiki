@@ -19,7 +19,11 @@
       @click="toggle"
       :aria-label="isOpen ? 'Fechar assistente' : 'Abrir assistente'"
     >
-      <span v-if="!isOpen" class="fab-icon">📡</span>
+      <span v-if="!isOpen" class="fab-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+          <path d="M12 2L14.4 9.6H22.4L16 14.2L18.4 21.8L12 17.2L5.6 21.8L8 14.2L1.6 9.6H9.6L12 2Z" fill="white" opacity="0.95"/>
+        </svg>
+      </span>
       <span v-else class="fab-icon fab-close">✕</span>
       <span v-if="!isOpen && unread > 0" class="fab-badge">{{ unread }}</span>
     </button>
@@ -30,7 +34,11 @@
         <!-- Header -->
         <div class="chat-header">
           <div class="chat-header-info">
-            <div class="chat-avatar">📡</div>
+            <div class="chat-avatar">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+                <path d="M12 2L14.4 9.6H22.4L16 14.2L18.4 21.8L12 17.2L5.6 21.8L8 14.2L1.6 9.6H9.6L12 2Z" fill="white" opacity="0.9"/>
+              </svg>
+            </div>
             <div>
               <div class="chat-name">PacketBot</div>
               <div class="chat-status">
@@ -50,7 +58,11 @@
             class="msg-row"
             :class="msg.role"
           >
-            <div v-if="msg.role === 'assistant'" class="msg-avatar">🤖</div>
+            <div v-if="msg.role === 'assistant'" class="msg-avatar">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+    <path d="M12 2L14.4 9.6H22.4L16 14.2L18.4 21.8L12 17.2L5.6 21.8L8 14.2L1.6 9.6H9.6L12 2Z" fill="#0284c7"/>
+  </svg>
+</div>
             <div class="msg-bubble" v-html="renderMarkdown(msg.content)"></div>
           </div>
 
@@ -397,7 +409,7 @@ onUnmounted(() => {
   z-index: 200;
 }
 .chat-fab:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(2, 132, 199, 0.55); }
-.fab-icon { font-size: 1.4rem; line-height: 1; }
+.fab-icon { display: flex; align-items: center; justify-content: center; }
 .fab-close { font-size: 1rem; font-weight: 700; color: white; }
 .fab-badge {
   position: absolute;
@@ -444,7 +456,16 @@ onUnmounted(() => {
   flex-shrink: 0;
 }
 .chat-header-info { display: flex; align-items: center; gap: 10px; }
-.chat-avatar { font-size: 1.6rem; }
+.chat-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
 .chat-name { color: white; font-weight: 700; font-size: 0.95rem; }
 .chat-status { color: rgba(255,255,255,0.8); font-size: 0.75rem; display: flex; align-items: center; gap: 5px; margin-top: 1px; }
 .status-dot {
@@ -481,7 +502,16 @@ onUnmounted(() => {
   gap: 7px;
 }
 .msg-row.user { flex-direction: row-reverse; }
-.msg-avatar { font-size: 1.3rem; flex-shrink: 0; }
+.msg-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--vp-c-brand-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
 .msg-bubble {
   max-width: 82%;
   padding: 9px 13px;
