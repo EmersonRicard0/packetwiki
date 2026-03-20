@@ -63,13 +63,6 @@
   background: rgba(13, 17, 23, 0.85) !important;
 }
 
-/* Logo: tamanho ideal no nav */
-.VPNavBarTitle .logo {
-  height: 28px !important;
-  width: 28px !important;
-  margin-right: 2px;
-}
-
 /* Nome do site no nav: gradiente sutil */
 .VPNavBarTitle .title {
   font-weight: 700 !important;
@@ -168,7 +161,7 @@
 ════════════════════════════════════════ */
 
 .VPFeatures {
-  padding-top: 8px !important;
+  padding-top: 64px !important;
 }
 
 .VPFeature {

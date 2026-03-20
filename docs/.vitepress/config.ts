@@ -25,8 +25,6 @@ export default defineConfig({
   ignoreDeadLinks: true,
 
   themeConfig: {
-    logo: '/logo.svg',
-
     nav: [
       { text: 'Início', link: '/pt/' },
       { text: 'Roteadores', link: '/pt/roteadores/' },
