@@ -8,7 +8,6 @@
         @click="toggle"
       >
         {{ bubbleText }}
-        <div class="bubble-tail"></div>
       </div>
     </Transition>
 
@@ -696,30 +695,16 @@ onUnmounted(() => {
   right: 84px;
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-border);
-  border-radius: 12px 12px 2px 12px;
-  padding: 10px 14px;
+  border-radius: 20px;
+  padding: 10px 16px;
   font-size: 0.82rem;
   font-weight: 500;
   color: var(--vp-c-text-1);
-  white-space: nowrap;
   box-shadow: 0 4px 16px rgba(0,0,0,0.12);
   cursor: pointer;
   z-index: 199;
   max-width: 200px;
-  white-space: normal;
   line-height: 1.4;
-}
-.bubble-tail {
-  position: absolute;
-  bottom: -6px;
-  right: 12px;
-  width: 12px;
-  height: 12px;
-  background: var(--vp-c-bg);
-  border-right: 1px solid var(--vp-c-border);
-  border-bottom: 1px solid var(--vp-c-border);
-  transform: rotate(45deg);
-  clip-path: polygon(0 0, 100% 0, 100% 100%);
 }
 .bubble-enter-active { animation: bubbleIn 0.3s cubic-bezier(0.34,1.56,0.64,1); }
 .bubble-leave-active { animation: bubbleOut 0.2s ease-in forwards; }
