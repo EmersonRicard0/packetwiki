@@ -47,7 +47,10 @@
               </div>
             </div>
           </div>
-          <button class="chat-close-btn" @click="toggle">✕</button>
+          <div class="chat-header-actions">
+            <button class="chat-clear-btn" @click="clearHistory" title="Limpar conversa">🗑 Limpar conversa</button>
+            <button class="chat-close-btn" @click="toggle">✕</button>
+          </div>
         </div>
 
         <!-- Mensagens -->
@@ -243,12 +246,31 @@ Em vez disso, faça um resumo curto (2-3 linhas) e direcione o usuário para a p
 
 Seja direto e útil. Máximo 3 parágrafos curtos por resposta.`
 
-const messages = ref([
-  {
-    role: 'assistant',
-    content: 'Olá! 👋 Sou o **PacketBot**, assistente do PacketWiki.\n\nPosso te ajudar a encontrar configurações, tirar dúvidas técnicas e te guiar para a página certa. O que precisa?',
-  },
-])
+const STORAGE_KEY = 'packetwiki-chat-history'
+const WELCOME_MESSAGE = {
+  role: 'assistant',
+  content: 'Olá! 👋 Sou o **PacketBot**, assistente do PacketWiki.\n\nPosso te ajudar a encontrar configurações, tirar dúvidas técnicas e te guiar para a página certa. O que precisa?',
+}
+
+function loadHistory() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY)
+    if (saved) {
+      const parsed = JSON.parse(saved)
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed
+    }
+  } catch (_) {}
+  return [WELCOME_MESSAGE]
+}
+
+function saveHistory(msgs) {
+  try {
+    const toSave = msgs.slice(-20)
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave))
+  } catch (_) {}
+}
+
+const messages = ref(loadHistory())
 
 const history = ref([])
 
@@ -264,6 +286,12 @@ const bubbleText = ref(bubbleTexts[0])
 let bubbleIndex = 0
 let bubbleTimer = null
 
+function clearHistory() {
+  messages.value = [WELCOME_MESSAGE]
+  history.value = []
+  try { localStorage.removeItem(STORAGE_KEY) } catch (_) {}
+}
+
 function renderMarkdown(text) {
   return text
     .replace(/&/g, '&amp;')
@@ -274,6 +302,9 @@ function renderMarkdown(text) {
     .replace(/`(.+?)`/g, '<code>$1</code>')
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, href) => {
       const full = href.startsWith('/') ? href : href
+      if (full.startsWith('/pt/')) {
+        return `<a href="${full}" class="chat-link-btn" onclick="event.preventDefault(); window.__chatNav && window.__chatNav('${full}')">→ ${label}</a>`
+      }
       return `<a href="${full}" class="chat-link" onclick="event.preventDefault(); window.__chatNav && window.__chatNav('${full}')">${label}</a>`
     })
     .replace(/\n/g, '<br>')
@@ -314,6 +345,7 @@ async function send() {
 
   input.value = ''
   messages.value.push({ role: 'user', content: text })
+  saveHistory(messages.value)
   history.value.push({ role: 'user', parts: [{ text }] })
   isLoading.value = true
   await scrollBottom()
@@ -346,6 +378,7 @@ async function send() {
     if (!reply) throw new Error('Resposta vazia da API')
 
     messages.value.push({ role: 'assistant', content: reply })
+    saveHistory(messages.value)
     history.value.push({ role: 'model', parts: [{ text: reply }] })
 
     if (!isOpen.value) unread.value++
@@ -354,6 +387,7 @@ async function send() {
       role: 'assistant',
       content: `⚠️ ${e.message || 'Erro ao conectar. Tente novamente.'}`,
     })
+    saveHistory(messages.value)
   } finally {
     isLoading.value = false
     await scrollBottom()
@@ -370,11 +404,11 @@ function scheduleBubble() {
       setTimeout(() => {
         showBubble.value = false
         scheduleBubble()
-      }, 4000)
+      }, 9000)
     } else {
       scheduleBubble()
     }
-  }, 12000 + Math.random() * 8000)
+  }, 15000 + Math.random() * 10000)
 }
 
 onMounted(() => {
@@ -383,14 +417,14 @@ onMounted(() => {
     isOpen.value = false
   }
 
-  // Mostra balão após 3s da primeira vez
+  // Mostra balão após 4s da primeira vez, fica 10s visível
   setTimeout(() => {
     showBubble.value = true
     setTimeout(() => {
       showBubble.value = false
       scheduleBubble()
-    }, 5000)
-  }, 3000)
+    }, 10000)
+  }, 4000)
 })
 
 onUnmounted(() => {
@@ -484,6 +518,23 @@ onUnmounted(() => {
 }
 .status-dot.thinking { background: #fbbf24; animation: pulse 1s infinite; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.chat-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.chat-clear-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.85);
+  font-size: 0.72rem;
+  padding: 4px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.chat-clear-btn:hover { background: rgba(255,255,255,0.25); color: white; }
 .chat-close-btn {
   background: rgba(255,255,255,0.18);
   border: none; color: white;
@@ -494,6 +545,26 @@ onUnmounted(() => {
   transition: background 0.2s;
 }
 .chat-close-btn:hover { background: rgba(255,255,255,0.3); }
+.chat-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  margin: 3px 2px;
+  border-radius: 6px;
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid var(--vp-c-brand-1);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.chat-link-btn:hover {
+  background: var(--vp-c-brand-1);
+  color: white;
+}
 
 /* ── Messages ── */
 .chat-messages {
