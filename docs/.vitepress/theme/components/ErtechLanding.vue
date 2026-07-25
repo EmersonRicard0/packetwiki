@@ -5,48 +5,61 @@
 
     <!-- ══ HERO ══ -->
     <header class="er-hero">
-      <div class="er-eyebrow">Monitoramento · Alertas · Performance</div>
-      <div class="er-wordmark"><span class="er-mark">ER</span><span class="er-tech">tech</span></div>
-      <h1 class="er-tagline">
-        Observabilidade de ponta a ponta para redes,
-        <br class="hide-sm" /> servidores e infraestrutura crítica.
-      </h1>
+      <div class="er-hero-text">
+        <div class="er-eyebrow">Monitoramento · Alertas · Performance</div>
+        <div class="er-wordmark"><span class="er-mark">ER</span><span class="er-tech">tech</span></div>
+        <h1 class="er-tagline">
+          Observabilidade de ponta a ponta para redes,
+          servidores e infraestrutura crítica.
+        </h1>
 
-      <div class="er-chips">
-        <span class="er-chip"><i v-html="ic.noc"></i> NOC</span>
-        <span class="er-chip"><i v-html="ic.soc"></i> SOC</span>
-        <span class="er-chip"><i v-html="ic.automation"></i> Automação</span>
-        <span class="er-chip"><i v-html="ic.layers"></i> Multivendor</span>
-      </div>
-
-      <div class="er-cta">
-        <a class="er-btn primary" :href="mail"><i v-html="ic.mail"></i> Falar com a ERtech</a>
-        <a class="er-btn ghost" href="/pt/"><i v-html="ic.book"></i> Acessar a Base de Conhecimento</a>
-      </div>
-
-      <div class="er-byline">
-        <span class="er-avatar">ER</span>
-        <div>
-          <strong>Emerson Ricardo</strong>
-          <span>Arquiteto de Monitoramento &amp; Automação</span>
+        <div class="er-chips">
+          <span class="er-chip"><i v-html="ic.noc"></i> NOC</span>
+          <span class="er-chip"><i v-html="ic.soc"></i> SOC</span>
+          <span class="er-chip"><i v-html="ic.automation"></i> Automação</span>
+          <span class="er-chip"><i v-html="ic.layers"></i> Multivendor</span>
         </div>
+
+        <div class="er-cta">
+          <a class="er-btn primary" :href="mail"><i v-html="ic.mail"></i> Falar com a ERtech</a>
+          <a class="er-btn ghost" href="/pt/"><i v-html="ic.book"></i> Acessar a Base de Conhecimento</a>
+        </div>
+
+        <div class="er-byline">
+          <img class="er-avatar-img" src="/emerson-avatar.jpg" alt="Emerson Ricardo" width="46" height="46" />
+          <div>
+            <strong>Emerson Ricardo</strong>
+            <span>Arquiteto de Monitoramento &amp; Automação</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="er-hero-visual">
+        <img src="/ertech-badge.jpg" alt="ERtech — Monitoramento, Alertas & Performance" />
       </div>
     </header>
 
     <!-- ══ IDENTIDADE ══ -->
     <section class="er-sec">
-      <div class="er-kicker">01 — Identidade</div>
-      <h2 class="er-h2">Do sinal disperso à decisão</h2>
-      <p class="er-lead">
-        Projeto e opero ecossistemas de monitoramento que transformam sinais dispersos em decisão.
-        Do Zabbix ao Grafana, do alerta bruto ao insight acionável — cada camada da infraestrutura
-        sob controle, com automação onde antes havia esforço manual.
-      </p>
-      <div class="er-chips center">
-        <span class="er-chip solid">Zabbix</span>
-        <span class="er-chip solid">Grafana</span>
-        <span class="er-chip solid">n8n</span>
-        <span class="er-chip solid">Redes &amp; Infra</span>
+      <div class="er-identidade">
+        <div class="er-portrait">
+          <img src="/emerson-portrait.jpg" alt="Emerson Ricardo" />
+        </div>
+        <div class="er-identidade-text">
+          <div class="er-kicker">01 — Identidade</div>
+          <h2 class="er-h2">Do sinal disperso à decisão</h2>
+          <p class="er-lead">
+            Projeto e opero ecossistemas de monitoramento que transformam sinais dispersos em decisão.
+            Do Zabbix ao Grafana, do alerta bruto ao insight acionável — cada camada da infraestrutura
+            sob controle, com automação onde antes havia esforço manual.
+          </p>
+          <div class="er-chips">
+            <span class="er-chip solid">Zabbix</span>
+            <span class="er-chip solid">Grafana</span>
+            <span class="er-chip solid">n8n</span>
+            <span class="er-chip solid">Redes &amp; Infra</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -319,11 +332,58 @@ const modulos = [
 
 /* HERO */
 .er-hero {
-  max-width: 900px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: clamp(64px, 12vh, 130px) 24px 70px;
-  text-align: center;
+  padding: clamp(56px, 10vh, 110px) 24px 60px;
+  display: grid;
+  grid-template-columns: 1.12fr 0.88fr;
+  align-items: center;
+  gap: 44px;
 }
+.er-hero-text { text-align: left; }
+.er-hero-visual { display: flex; justify-content: center; }
+.er-hero-visual img {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+  border-radius: 26px;
+  filter: drop-shadow(0 22px 55px rgba(229, 57, 53, 0.3));
+  animation: floatBadge 6s ease-in-out infinite;
+}
+@keyframes floatBadge {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+.er-avatar-img {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top center;
+  border: 2px solid var(--coral);
+  flex-shrink: 0;
+}
+
+/* IDENTIDADE (retrato + texto) */
+.er-identidade {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 40px;
+  align-items: center;
+}
+.er-portrait { display: flex; justify-content: center; }
+.er-portrait img {
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.4);
+}
+.er-identidade-text .er-lead { margin-top: 16px; }
+.er-identidade-text .er-chips { margin-top: 22px; }
 .er-eyebrow {
   font-family: var(--mono);
   font-size: 0.78rem;
@@ -339,17 +399,17 @@ const modulos = [
   line-height: 1.28;
   letter-spacing: -0.02em;
   color: #fff;
-  margin: 28px auto 0;
-  max-width: 720px;
+  margin: 24px 0 0;
+  max-width: 640px;
 }
 .er-chips {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: 30px;
 }
-.er-chips.center { margin-top: 22px; }
+.er-chips.center { justify-content: center; margin-top: 22px; }
 .er-chip {
   display: inline-flex;
   align-items: center;
@@ -369,10 +429,10 @@ const modulos = [
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: 38px;
 }
-.er-cta.center { margin-top: 30px; }
+.er-cta.center { justify-content: center; margin-top: 30px; }
 .er-btn {
   display: inline-flex;
   align-items: center;
@@ -569,6 +629,18 @@ const modulos = [
   .er-grid.three, .er-grid.two { grid-template-columns: 1fr 1fr; }
   .er-stats { grid-template-columns: 1fr 1fr; }
   .er-module { grid-template-columns: 1fr; padding: 26px; }
+
+  .er-hero { grid-template-columns: 1fr; text-align: center; padding-top: clamp(48px, 8vh, 80px); }
+  .er-hero-text { text-align: center; }
+  .er-hero .er-chips, .er-hero .er-cta { justify-content: center; }
+  .er-byline { justify-content: center; }
+  .er-hero-visual { order: -1; }
+  .er-hero-visual img { max-width: 300px; }
+
+  .er-identidade { grid-template-columns: 1fr; text-align: center; }
+  .er-identidade .er-chips { justify-content: center; }
+  .er-portrait { order: -1; }
+  .er-portrait img { max-width: 240px; }
 }
 @media (max-width: 560px) {
   .er-grid.three, .er-grid.two { grid-template-columns: 1fr; }

@@ -33,7 +33,7 @@ Open an [Issue on GitHub](https://github.com/EmersonRicard0/packetwiki/issues) d
 
 Prefer not to use GitHub? No problem! Send your content to:
 
-📧 **[silvaemerson797@gmail.com](mailto:silvaemerson797@gmail.com)**
+**[silvaemerson797@gmail.com](mailto:silvaemerson797@gmail.com)**
 
 Accepted formats:
 - `.md` (Markdown) file

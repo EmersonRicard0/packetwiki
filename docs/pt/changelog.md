@@ -14,7 +14,7 @@ Este changelog registra mudanças de **conteúdo** (páginas, seções, exemplos
 
 ## Março 2025
 
-### ✨ Adicionado
+### Adicionado
 
 - **Switches Huawei** — Cobertura completa com 9 páginas:
   - Configuração inicial, gerência SSH, VLANs e trunks
@@ -51,11 +51,11 @@ Este changelog registra mudanças de **conteúdo** (páginas, seções, exemplos
   - Integração com BNG Huawei
 
 - **Infraestrutura do wiki**:
-  - 💬 Comentários com Giscus (GitHub Discussions integrado)
-  - 🤖 Assistente de IA PacketBot (chat contextual sobre redes)
+  - Comentários com Giscus (GitHub Discussions integrado)
+  - Assistente de IA PacketBot (chat contextual sobre redes)
   - Busca local otimizada com VitePress Search
 
-### 🔧 Melhorado
+### Melhorado
 
 - Página inicial (`/pt/`) redesenhada com cards de navegação e destaque de conteúdo novo
 - Sidebar reorganizada com agrupamento por fabricante e função
@@ -65,7 +65,7 @@ Este changelog registra mudanças de **conteúdo** (páginas, seções, exemplos
 
 ## Fevereiro 2025
 
-### ✨ Adicionado
+### Adicionado
 
 - **Estrutura inicial do PacketWiki**:
   - Configuração do VitePress com tema customizado PacketWiki
@@ -91,7 +91,7 @@ Este changelog registra mudanças de **conteúdo** (páginas, seções, exemplos
 
 - **Página de contribuição** — guia para enviar correções e novas páginas via pull request
 
-### 🔧 Melhorado
+### Melhorado
 
 - Definição do `themeConfig` com logo, social links (GitHub) e footer
 - Configuração de canonical URL e Open Graph para SEO

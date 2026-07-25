@@ -153,7 +153,7 @@ http://IP_DO_SERVIDOR/zabbix
 ```
 
 Siga o wizard de instalação:
-1. Verificar pré-requisitos (tudo deve estar ✅)
+1. Verificar pré-requisitos (tudo deve estar OK)
 2. Configurar conexão com banco de dados
 3. Definir nome do servidor Zabbix
 4. Finalizar e fazer login

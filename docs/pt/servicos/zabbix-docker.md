@@ -177,7 +177,7 @@ docker compose restart zabbix-server
 # Parar tudo
 docker compose down
 
-# Parar e remover volumes (⚠ apaga dados)
+# Parar e remover volumes (ATENÇÃO: apaga dados)
 docker compose down -v
 ```
 

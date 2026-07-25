@@ -185,7 +185,7 @@ Acessos:
 1. **Configuration → Data Sources → Add data source**
 2. Selecione **Prometheus**
 3. URL: `http://prometheus:9090` *(nome do container — funciona dentro da rede Docker)*
-4. **Save & Test** → ✅
+4. **Save & Test** — deve confirmar a conexão
 
 ---
 

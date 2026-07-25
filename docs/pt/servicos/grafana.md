@@ -253,7 +253,7 @@ Senha:   SenhaGrafana@2024
 3. Configure:
    - **URL:** `http://localhost:9090`
    - **Scrape interval:** `15s`
-4. Clique em **Save & Test** — deve aparecer ✅
+4. Clique em **Save & Test** — deve confirmar a conexão
 
 ---
 

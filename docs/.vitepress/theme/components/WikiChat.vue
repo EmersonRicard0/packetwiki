@@ -19,10 +19,14 @@
       :aria-label="isOpen ? 'Fechar assistente' : 'Abrir assistente'"
     >
       <span v-if="!isOpen" class="fab-icon">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
-          <path d="M12 2L14.4 9.6H22.4L16 14.2L18.4 21.8L12 17.2L5.6 21.8L8 14.2L1.6 9.6H9.6L12 2Z" fill="white" opacity="0.95"/>
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.9-.9L3 21l1.9-5.6A8.5 8.5 0 1 1 21 11.5z"/>
+          <circle cx="8.5" cy="11.5" r="1.1" fill="white" stroke="none"/>
+          <circle cx="12" cy="11.5" r="1.1" fill="white" stroke="none"/>
+          <circle cx="15.5" cy="11.5" r="1.1" fill="white" stroke="none"/>
         </svg>
       </span>
+      <span v-if="!isOpen" class="fab-label">Assistente</span>
       <span v-else class="fab-icon fab-close">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </span>
@@ -367,77 +371,122 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* ── FAB ── */
+/* ── FAB (pill "Assistente" → círculo com X) ── */
 .chat-fab {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
+  height: 54px;
+  padding: 0 20px 0 15px;
+  border-radius: 30px;
   background: linear-gradient(135deg, #E53935, #FF5A52);
   border: none;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 18px rgba(229, 57, 53, 0.45);
-  transition: transform 0.2s, box-shadow 0.2s;
+  gap: 9px;
+  box-shadow: 0 8px 24px rgba(229, 57, 53, 0.4);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s, padding 0.25s, border-radius 0.25s;
   z-index: 200;
 }
-.chat-fab:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(229, 57, 53, 0.55); }
-.fab-icon { display: flex; align-items: center; justify-content: center; }
-.fab-close { font-size: 1rem; font-weight: 700; color: white; }
+.chat-fab::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 0 rgba(229, 57, 53, 0.45);
+  animation: fabPulse 2.6s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes fabPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0.5); }
+  70%  { box-shadow: 0 0 0 14px rgba(229, 57, 53, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0); }
+}
+.chat-fab:hover { transform: translateY(-2px) scale(1.04); box-shadow: 0 12px 30px rgba(229, 57, 53, 0.55); }
+
+/* Estado aberto: vira círculo só com o X */
+.chat-fab.open {
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border-radius: 50%;
+  justify-content: center;
+}
+.chat-fab.open::before { animation: none; }
+
+.fab-icon { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.fab-close { color: white; }
+.fab-label {
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
 .fab-badge {
   position: absolute;
-  top: -4px; right: -4px;
-  background: #ef4444;
-  color: white;
+  top: -5px; right: -5px;
+  background: #fff;
+  color: #E53935;
   font-size: 0.7rem;
   font-weight: 700;
-  width: 18px; height: 18px;
-  border-radius: 50%;
+  min-width: 19px; height: 19px;
+  padding: 0 5px;
+  border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Em telas pequenas, só o círculo com ícone (sem o rótulo) */
+@media (max-width: 560px) {
+  .chat-fab { padding: 0; width: 54px; justify-content: center; border-radius: 50%; }
+  .fab-label { display: none; }
 }
 
 /* ── Window ── */
 .chat-window {
   position: fixed;
-  bottom: 86px;
+  bottom: 90px;
   right: 24px;
-  width: 360px;
-  max-height: min(70vh, 640px);
+  width: 374px;
+  max-height: min(72vh, 660px);
   display: flex;
   flex-direction: column;
   background: var(--vp-c-bg);
-  border: 1px solid var(--vp-c-border);
-  border-radius: 16px;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.18);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 18px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28), 0 2px 8px rgba(0, 0, 0, 0.1);
   z-index: 199;
   overflow: hidden;
 }
 
 @media (max-width: 480px) {
   .chat-window {
-    right: 8px; left: 8px; width: auto; bottom: 82px;
+    right: 8px; left: 8px; width: auto; bottom: 84px;
+    max-height: 76vh;
   }
 }
 
 /* ── Header ── */
 .chat-header {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
-  background: linear-gradient(135deg, #E53935, #C62828);
+  padding: 14px 16px;
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgba(255, 255, 255, 0.18), transparent 55%),
+    linear-gradient(135deg, #E53935, #C62828);
   flex-shrink: 0;
 }
 .chat-header-info { display: flex; align-items: center; gap: 10px; }
 .chat-avatar {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.18);
+  border: 1.5px solid rgba(255,255,255,0.35);
   display: flex;
   align-items: center;
   justify-content: center;

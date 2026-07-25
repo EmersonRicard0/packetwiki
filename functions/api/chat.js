@@ -134,7 +134,9 @@ function json(obj, status = 200) {
 }
 
 export async function onRequestPost({ request, env }) {
-  const KEY = env.GEMINI_KEY
+  // Aceita GEMINI_KEY (recomendado) ou VITE_GEMINI_KEY (compatibilidade).
+  // Lida no servidor — nunca é exposta ao cliente.
+  const KEY = env.GEMINI_KEY || env.VITE_GEMINI_KEY
   if (!KEY) {
     return json({ error: 'IA indisponível: chave não configurada no servidor.' }, 503)
   }
