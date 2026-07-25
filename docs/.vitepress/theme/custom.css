@@ -232,7 +232,15 @@
   background: var(--vp-c-brand-soft) !important;
   border-radius: 10px !important;
   display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
   line-height: 1 !important;
+  color: var(--vp-c-brand-1) !important;
+}
+
+.VPFeature .icon svg {
+  width: 26px !important;
+  height: 26px !important;
 }
 
 .VPFeature .title {
@@ -363,6 +371,31 @@ div[class*='language-'] {
 ════════════════════════════════════════ */
 
 html { scroll-behavior: smooth; }
+
+/* ════════════════════════════════════════
+   LANDING ERtech (raiz /) — largura total
+════════════════════════════════════════ */
+
+.VPContent.ertech-home,
+.ertech-home .VPPage { padding: 0 !important; }
+
+.ertech-home .vp-doc {
+  padding: 0 !important;
+  max-width: none !important;
+}
+
+.ertech-home .vp-doc > div,
+.ertech-home .container {
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* A landing tem visual próprio (dark dos slides) em qualquer tema */
+.ertech-home { background: #1B1B1D; }
+
+/* A landing tem footer próprio — esconde o footer padrão do VitePress */
+.ertech-home .VPFooter { display: none !important; }
 
 /* ════════════════════════════════════════
    IMPRESSÃO

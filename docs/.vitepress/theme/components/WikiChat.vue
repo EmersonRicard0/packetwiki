@@ -23,7 +23,9 @@
           <path d="M12 2L14.4 9.6H22.4L16 14.2L18.4 21.8L12 17.2L5.6 21.8L8 14.2L1.6 9.6H9.6L12 2Z" fill="white" opacity="0.95"/>
         </svg>
       </span>
-      <span v-else class="fab-icon fab-close">✕</span>
+      <span v-else class="fab-icon fab-close">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </span>
       <span v-if="!isOpen && unread > 0" class="fab-badge">{{ unread }}</span>
     </button>
 
@@ -47,8 +49,13 @@
             </div>
           </div>
           <div class="chat-header-actions">
-            <button class="chat-clear-btn" @click="clearHistory" title="Limpar conversa">🗑 Limpar conversa</button>
-            <button class="chat-close-btn" @click="toggle">✕</button>
+            <button class="chat-clear-btn" @click="clearHistory" title="Limpar conversa" aria-label="Limpar conversa">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2m2 0v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6"/><path d="M10 11v6M14 11v6"/></svg>
+              Limpar
+            </button>
+            <button class="chat-close-btn" @click="toggle" aria-label="Fechar">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </button>
           </div>
         </div>
 
@@ -106,7 +113,10 @@
             class="chat-send"
             @click="send"
             :disabled="isLoading || !input.trim()"
-          >➤</button>
+            aria-label="Enviar"
+          >
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z"/></svg>
+          </button>
         </div>
       </div>
     </Transition>
@@ -125,7 +135,9 @@ const messagesEl = ref(null)
 const inputEl = ref(null)
 const unread = ref(0)
 
-const GEMINI_KEY = import.meta.env.VITE_GEMINI_KEY || ''
+// Endpoint do proxy seguro (Cloudflare Pages Function). A chave da IA
+// fica no servidor — o navegador nunca a vê.
+const CHAT_ENDPOINT = '/api/chat'
 
 const suggestions = [
   'Como configurar BGP no Huawei?',
@@ -134,121 +146,12 @@ const suggestions = [
   'Como configurar PPPoE no MikroTik?',
 ]
 
-const SYSTEM_PROMPT = `Você é o PacketBot, assistente virtual do PacketWiki (wiki.ertechnol.com.br).
-Fui criado por Emerson Silva Ricardo — dev e analista de redes brasileiro.
-
-Seu papel:
-- Responder dúvidas técnicas sobre redes, equipamentos e servidores Linux
-- Guiar o usuário para a página correta do wiki
-- Ser objetivo, técnico e simpático
-- Responder sempre em português do Brasil
-
-Páginas disponíveis no wiki (use os links nas respostas quando relevante):
-
-ROTEADORES:
-- Huawei (geral): /pt/roteadores/huawei/
-- Huawei Configuração Inicial: /pt/roteadores/huawei/configuracao-inicial
-- Huawei BGP: /pt/roteadores/huawei/bgp
-- Huawei OSPF: /pt/roteadores/huawei/ospf
-- Huawei Controle de Banda: /pt/roteadores/huawei/controle-de-banda
-- Huawei SNMP: /pt/roteadores/huawei/snmp
-- Huawei Backup: /pt/roteadores/huawei/backup
-- Huawei Firmware Update: /pt/roteadores/huawei/update
-- Huawei Limpar Contadores: /pt/roteadores/huawei/limpar-contadores
-- Huawei Troubleshooting: /pt/roteadores/huawei/troubleshooting
-- Huawei BNG/PPPoE (visão geral): /pt/roteadores/huawei/bng/
-- Huawei BNG AAA: /pt/roteadores/huawei/bng/aaa
-- Huawei BNG RADIUS: /pt/roteadores/huawei/bng/radius
-- Huawei BNG Pool IPv4: /pt/roteadores/huawei/bng/pool-ipv4
-- Huawei BNG Pool IPv6: /pt/roteadores/huawei/bng/pool-ipv6
-- Huawei BNG Domain: /pt/roteadores/huawei/bng/domain
-- Huawei BNG ACL/User-Group: /pt/roteadores/huawei/bng/acl
-- Huawei BNG Virtual-Template: /pt/roteadores/huawei/bng/virtual-template
-- Huawei BNG Padrão PPPoE: /pt/roteadores/huawei/bng/padrao
-- MikroTik (geral): /pt/roteadores/mikrotik/
-- MikroTik CCR: /pt/roteadores/mikrotik/ccr
-- MikroTik BGP: /pt/roteadores/mikrotik/bgp
-- MikroTik OSPF: /pt/roteadores/mikrotik/ospf
-- Cisco roteadores: /pt/roteadores/cisco/
-- Juniper roteadores: /pt/roteadores/juniper/
-- Ubiquiti roteadores: /pt/roteadores/ubiquiti/
-
-SWITCHES:
-- Huawei switches (geral): /pt/switches/huawei/
-- Huawei Config Inicial: /pt/switches/huawei/configuracao-inicial
-- Huawei Gerência/SSH: /pt/switches/huawei/gerencia-ssh
-- Huawei VLAN: /pt/switches/huawei/vlan
-- Huawei Agregação de Links: /pt/switches/huawei/agregacao
-- Huawei Controle de Banda: /pt/switches/huawei/controle-de-banda
-- Huawei SNMP: /pt/switches/huawei/snmp
-- Huawei Log/Syslog: /pt/switches/huawei/log-syslog
-- Huawei Backup/Restore: /pt/switches/huawei/backup-restore
-- Huawei Data/NTP: /pt/switches/huawei/time-date
-- Huawei MPLS/LDP: /pt/switches/huawei/mpls
-- Huawei MPLS L2VPN/VPLS: /pt/switches/huawei/mpls-l2vpn
-- Huawei Troubleshooting: /pt/switches/huawei/troubleshooting
-- Datacom switches: /pt/switches/datacom/
-- Datacom Config Inicial: /pt/switches/datacom/configuracao-inicial
-- Datacom VLANs: /pt/switches/datacom/vlan
-- Datacom MPLS/L2VPN: /pt/switches/datacom/mpls
-- Datacom QoS: /pt/switches/datacom/qos
-- Datacom Segurança: /pt/switches/datacom/seguranca
-- Cisco switches: /pt/switches/cisco/
-- Cisco Catalyst 9200/9300: /pt/switches/cisco/catalyst-9200
-- HP/Aruba switches: /pt/switches/aruba/
-- MikroTik switches: /pt/switches/mikrotik/
-- Juniper switches: /pt/switches/juniper/
-
-OLT / GPON:
-- Huawei OLT (geral): /pt/olt/huawei/
-- Huawei Config Inicial: /pt/olt/huawei/configuracao-inicial
-- Huawei Device/Gerência: /pt/olt/huawei/device
-- Huawei Interfaces/VLANs: /pt/olt/huawei/interface-vlan
-- Huawei GPON/ONUs: /pt/olt/huawei/gpon-ont
-- Huawei Serviços/Perfis: /pt/olt/huawei/servicos-perfis
-- Huawei MPLS: /pt/olt/huawei/mpls
-- Huawei Troubleshooting: /pt/olt/huawei/troubleshooting
-- Datacom OLT (geral): /pt/olt/datacom/
-- Datacom Config Inicial: /pt/olt/datacom/configuracao-inicial
-- Datacom Perfis GPON: /pt/olt/datacom/gpon-perfis
-- Datacom Provisionamento ONUs: /pt/olt/datacom/gpon-provisionamento
-- Datacom Serviços GPON: /pt/olt/datacom/gpon-servicos
-- Datacom MPLS/VPLS: /pt/olt/datacom/mpls-vpls
-
-LINUX:
-- Firewall iptables: /pt/linux/firewall/iptables
-- Firewall nftables: /pt/linux/firewall/nftables
-- DHCP (Kea/isc): /pt/linux/servicos/dhcp
-- VPN WireGuard: /pt/linux/servicos/wireguard
-- Zabbix Agent: /pt/linux/monitoramento/zabbix
-- Grafana + Prometheus: /pt/linux/monitoramento/grafana
-
-SERVIÇOS:
-- Zabbix: /pt/servicos/zabbix
-- Zabbix via Docker: /pt/servicos/zabbix-docker
-- Grafana + Prometheus: /pt/servicos/grafana
-- Grafana via Docker: /pt/servicos/grafana-docker
-- FreeRADIUS: /pt/servicos/freeradius
-
-OUTROS:
-- Glossário: /pt/glossario
-- Como Contribuir: /pt/contribuir
-- Sobre o criador: /pt/sobre
-
-Quando citar uma página, use o formato markdown de link assim:
-[Texto do link](/pt/caminho/da/pagina)
-
-REGRA IMPORTANTE — respostas longas:
-Se a resposta exigir muitos comandos, configurações detalhadas ou mais de 3 passos, NÃO escreva tudo no chat.
-Em vez disso, faça um resumo curto (2-3 linhas) e direcione o usuário para a página correta com uma frase como:
-"Para o guia completo com todos os comandos, acesse: [Nome da Página](/pt/caminho)"
-
-Seja direto e útil. Máximo 3 parágrafos curtos por resposta.`
+// O prompt de sistema e as regras de segurança ficam no servidor (functions/api/chat.js).
 
 const STORAGE_KEY = 'packetwiki-chat-history'
 const WELCOME_MESSAGE = {
   role: 'assistant',
-  content: 'Olá! 👋 Sou o **PacketBot**, assistente do PacketWiki.\n\nPosso te ajudar a encontrar configurações, tirar dúvidas técnicas e te guiar para a página certa. O que precisa?',
+  content: 'Olá! Sou o **PacketBot**, o assistente técnico da ERtech.\n\nPosso ajudar a encontrar configurações, tirar dúvidas técnicas e te guiar para a página certa da wiki. O que você precisa?',
 }
 
 function loadHistory() {
@@ -275,11 +178,11 @@ const history = ref([])
 
 const showBubble = ref(false)
 const bubbleTexts = [
-  'Em que posso ajudar hoje? 😊',
+  'Em que posso ajudar hoje?',
   'Tem alguma dúvida sobre redes?',
   'Procurando alguma configuração?',
   'Posso te guiar pelas páginas do wiki!',
-  'BGP, OSPF, GPON... é só perguntar! 📡',
+  'BGP, OSPF, GPON... é só perguntar!',
 ]
 const bubbleText = ref(bubbleTexts[0])
 let bubbleIndex = 0
@@ -291,22 +194,64 @@ function clearHistory() {
   try { localStorage.removeItem(STORAGE_KEY) } catch (_) {}
 }
 
-function renderMarkdown(text) {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, '<em>$1</em>')
-    .replace(/`(.+?)`/g, '<code>$1</code>')
+const esc = (s) =>
+  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+
+// Formatação inline: negrito, itálico, código e links.
+function inline(s) {
+  return s
+    .replace(/`([^`]+)`/g, (_, c) => `<code>${c}</code>`)
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/(^|[^*])\*([^*]+)\*/g, '$1<em>$2</em>')
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, href) => {
-      const full = href.startsWith('/') ? href : href
-      if (full.startsWith('/pt/')) {
-        return `<a href="${full}" class="chat-link-btn" onclick="event.preventDefault(); window.__chatNav && window.__chatNav('${full}')">→ ${label}</a>`
+      const safe = href.replace(/["'<>]/g, '')
+      if (safe.startsWith('/')) {
+        const cls = safe.startsWith('/pt/') ? 'chat-link-btn' : 'chat-link'
+        const arrow = safe.startsWith('/pt/') ? '&rarr; ' : ''
+        return `<a href="${safe}" class="${cls}" onclick="event.preventDefault(); window.__chatNav && window.__chatNav('${safe}')">${arrow}${label}</a>`
       }
-      return `<a href="${full}" class="chat-link" onclick="event.preventDefault(); window.__chatNav && window.__chatNav('${full}')">${label}</a>`
+      return `<a href="${safe}" class="chat-link" target="_blank" rel="noopener noreferrer">${label}</a>`
     })
-    .replace(/\n/g, '<br>')
+}
+
+// Renderiza um subconjunto seguro de markdown: títulos, listas,
+// blocos de código, negrito/itálico e links. Tudo é escapado antes.
+function renderMarkdown(text) {
+  const blocks = []
+  // 1. Protege blocos de código ```...```
+  let src = text.replace(/```(\w+)?\n?([\s\S]*?)```/g, (_, lang, code) => {
+    const i = blocks.length
+    blocks.push(`<pre class="chat-code"><code>${esc(code.replace(/\n$/, ''))}</code></pre>`)
+    return ` BLOCK${i} `
+  })
+
+  const lines = src.split('\n')
+  let html = ''
+  let list = null // 'ul' | 'ol' | null
+
+  const closeList = () => { if (list) { html += `</${list}>`; list = null } }
+
+  for (let raw of lines) {
+    const line = raw.trimEnd()
+    const ph = line.match(/^ BLOCK(\d+) $/)
+    if (ph) { closeList(); html += blocks[+ph[1]]; continue }
+    if (!line.trim()) { closeList(); continue }
+
+    let m
+    if ((m = line.match(/^#{1,3}\s+(.*)$/))) {
+      closeList(); html += `<div class="chat-h">${inline(esc(m[1]))}</div>`
+    } else if ((m = line.match(/^\s*[-*]\s+(.*)$/))) {
+      if (list !== 'ul') { closeList(); html += '<ul>'; list = 'ul' }
+      html += `<li>${inline(esc(m[1]))}</li>`
+    } else if ((m = line.match(/^\s*\d+\.\s+(.*)$/))) {
+      if (list !== 'ol') { closeList(); html += '<ol>'; list = 'ol' }
+      html += `<li>${inline(esc(m[1]))}</li>`
+    } else {
+      closeList(); html += `<p>${inline(esc(line))}</p>`
+    }
+  }
+  closeList()
+  return html
 }
 
 async function scrollBottom() {
@@ -334,57 +279,47 @@ async function send() {
   const text = input.value.trim()
   if (!text || isLoading.value) return
 
-  if (!GEMINI_KEY) {
-    messages.value.push({
-      role: 'assistant',
-      content: '⚠️ Chave da API não configurada. Adicione `VITE_GEMINI_KEY` nas variáveis de ambiente.',
-    })
-    return
-  }
-
   input.value = ''
   messages.value.push({ role: 'user', content: text })
   saveHistory(messages.value)
-  history.value.push({ role: 'user', parts: [{ text }] })
+  history.value.push({ role: 'user', text })
   isLoading.value = true
   await scrollBottom()
 
   try {
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${GEMINI_KEY}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
-          contents: history.value,
-          generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 600,
-          },
-        }),
-      }
-    )
+    const res = await fetch(CHAT_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ history: history.value.slice(-12) }),
+    })
 
-    const data = await res.json()
+    let data = {}
+    try { data = await res.json() } catch (_) {}
 
-    if (!res.ok) {
-      const errMsg = data?.error?.message || `Erro ${res.status}`
-      throw new Error(errMsg)
+    if (res.status === 404 || res.status === 405) {
+      throw new Error('O assistente só funciona no site publicado (Cloudflare). No preview local ele fica indisponível.')
+    }
+    if (!res.ok || data.error) {
+      throw new Error(data.error || 'Não consegui responder agora. Tente novamente em instantes.')
     }
 
-    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text
-    if (!reply) throw new Error('Resposta vazia da API')
+    let reply = data.reply
+    if (!reply) throw new Error('Resposta vazia. Reformule a pergunta, por favor.')
+
+    // Se a resposta foi cortada por limite de tamanho, avisa o usuário.
+    if (data.finishReason === 'MAX_TOKENS') {
+      reply += '\n\n*(A resposta ficou longa. Peça "continuar" para o restante ou abra a página completa da wiki.)*'
+    }
 
     messages.value.push({ role: 'assistant', content: reply })
     saveHistory(messages.value)
-    history.value.push({ role: 'model', parts: [{ text: reply }] })
+    history.value.push({ role: 'model', text: reply })
 
     if (!isOpen.value) unread.value++
   } catch (e) {
     messages.value.push({
       role: 'assistant',
-      content: `⚠️ ${e.message || 'Erro ao conectar. Tente novamente.'}`,
+      content: e.message || 'Erro ao conectar. Tente novamente.',
     })
     saveHistory(messages.value)
   } finally {
@@ -471,7 +406,7 @@ onUnmounted(() => {
   bottom: 86px;
   right: 24px;
   width: 360px;
-  max-height: 520px;
+  max-height: min(70vh, 640px);
   display: flex;
   flex-direction: column;
   background: var(--vp-c-bg);
@@ -687,6 +622,42 @@ onUnmounted(() => {
 }
 .chat-send:hover:not(:disabled) { opacity: 0.88; transform: scale(1.05); }
 .chat-send:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── Markdown dentro das mensagens ── */
+.msg-bubble p { margin: 0 0 6px; }
+.msg-bubble p:last-child { margin-bottom: 0; }
+.msg-bubble .chat-h {
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin: 8px 0 4px;
+  color: var(--vp-c-brand-1);
+}
+.msg-bubble ul, .msg-bubble ol { margin: 4px 0 6px; padding-left: 18px; }
+.msg-bubble li { margin: 2px 0; }
+.msg-bubble code {
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.82em;
+  font-family: var(--vp-font-family-mono);
+}
+.msg-bubble pre.chat-code {
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 6px 0;
+  overflow-x: auto;
+}
+.msg-bubble pre.chat-code code {
+  background: none;
+  color: var(--vp-c-text-1);
+  padding: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  white-space: pre;
+}
 
 /* ── Speech Bubble ── */
 .chat-bubble {

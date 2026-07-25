@@ -2,17 +2,18 @@ import { defineConfig } from 'vitepress'
 import { ptSidebar } from './sidebars/pt'
 
 export default defineConfig({
-  title: 'PacketWiki',
-  description: 'A wiki open source da comunidade de redes e servidores Linux',
+  title: 'ERtech',
+  titleTemplate: ':title — ERtech',
+  description: 'ERtech — observabilidade de ponta a ponta para redes, servidores e infraestrutura crítica. Monitoramento, alertas e performance por Emerson Ricardo.',
   lang: 'pt-BR',
 
   head: [
     ['link', { rel: 'icon', href: '/logo.svg' }],
     ['meta', { name: 'theme-color', content: '#E53935' }],
     ['meta', { property: 'og:type', content: 'website' }],
-    ['meta', { property: 'og:site_name', content: 'PacketWiki' }],
-    ['meta', { property: 'og:title', content: 'PacketWiki — Wiki Técnica de Redes' }],
-    ['meta', { property: 'og:description', content: 'Documentação técnica colaborativa sobre redes, equipamentos e servidores Linux para profissionais brasileiros.' }],
+    ['meta', { property: 'og:site_name', content: 'ERtech' }],
+    ['meta', { property: 'og:title', content: 'ERtech — Monitoramento, Alertas & Performance' }],
+    ['meta', { property: 'og:description', content: 'Observabilidade de ponta a ponta para redes, servidores e infraestrutura crítica. Inclui a PacketWiki — base de conhecimento técnica.' }],
     ['meta', { property: 'og:url', content: 'https://wiki.ertechnol.com.br' }],
     ['meta', { property: 'og:image', content: 'https://wiki.ertechnol.com.br/hero.svg' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
@@ -28,17 +29,27 @@ export default defineConfig({
   ignoreDeadLinks: true,
 
   themeConfig: {
+    siteTitle: 'ERtech',
+    logo: '/logo.svg',
+
     nav: [
-      { text: 'Início', link: '/pt/' },
-      { text: 'Roteadores', link: '/pt/roteadores/' },
-      { text: 'Switches', link: '/pt/switches/' },
-      { text: 'OLT', link: '/pt/olt/' },
-      { text: 'Servidores Linux', link: '/pt/linux/' },
-      { text: 'Serviços', link: '/pt/servicos/' },
-      { text: 'Scripts', link: '/pt/scripts' },
-      { text: 'Glossário', link: '/pt/glossario' },
+      { text: 'ERtech', link: '/' },
+      { text: 'Wiki', link: '/pt/' },
+      {
+        text: 'Documentação',
+        items: [
+          { text: 'Roteadores', link: '/pt/roteadores/' },
+          { text: 'Switches', link: '/pt/switches/' },
+          { text: 'OLT / GPON', link: '/pt/olt/' },
+          { text: 'Servidores Linux', link: '/pt/linux/' },
+          { text: 'Serviços', link: '/pt/servicos/' },
+          { text: 'Scripts', link: '/pt/scripts' },
+          { text: 'Glossário', link: '/pt/glossario' },
+        ],
+      },
       { text: 'Contribuir', link: '/pt/contribuir' },
       { text: 'Sobre', link: '/pt/sobre' },
+      { text: 'Contato', link: 'mailto:silvaemerson797@gmail.com' },
     ],
 
     sidebar: ptSidebar,
