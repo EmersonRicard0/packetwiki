@@ -23,9 +23,9 @@
       </g>
 
       <!-- Body (hoodie) — mostly hidden off right edge -->
-      <rect x="12" y="62" width="68" height="58" rx="18" fill="#0284c7"/>
+      <rect x="12" y="62" width="68" height="58" rx="18" fill="#E53935"/>
       <!-- Hoodie pocket -->
-      <rect x="28" y="95" width="20" height="14" rx="6" fill="#0369a1"/>
+      <rect x="28" y="95" width="20" height="14" rx="6" fill="#C62828"/>
 
       <!-- Neck -->
       <rect x="30" y="55" width="20" height="14" rx="7" fill="#f9c74f"/>
@@ -72,8 +72,8 @@
 
       <!-- Headphone / fone -->
       <path d="M13 38 Q13 14 40 14 Q67 14 67 38" stroke="#1a1a2e" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-      <rect x="9" y="37" width="8" height="12" rx="3" fill="#0284c7"/>
-      <rect x="63" y="37" width="8" height="12" rx="3" fill="#0284c7"/>
+      <rect x="9" y="37" width="8" height="12" rx="3" fill="#E53935"/>
+      <rect x="63" y="37" width="8" height="12" rx="3" fill="#E53935"/>
 
       <!-- Right hand gripping the edge -->
       <g class="hand-right">

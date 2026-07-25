@@ -1,51 +1,91 @@
 /* ================================================
-   PacketWiki — Custom Theme
-   Paleta: Sky Blue + Emerald Green + Dark Navy
+   PacketWiki — Custom Theme (ERtech)
+   Paleta: Vermelho E53935 + Coral FF5A52 + Dark 1B1B1D
+   Fontes: Space Grotesk (display) · IBM Plex Sans (texto) · IBM Plex Mono (código)
    ================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+/* ── Tipografia global ── */
+:root {
+  --vp-font-family-base: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --vp-font-family-mono: 'IBM Plex Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --pw-font-display: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
+}
+
+/* Títulos e display em Space Grotesk */
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3,
+.vp-doc h4,
+.VPHero .name,
+.VPHero .text,
+.VPFeature .title,
+.VPNavBarTitle .title {
+  font-family: var(--pw-font-display) !important;
+}
 
 /* ── Brand Colors (light mode) ── */
 :root {
-  --vp-c-brand-1: #0284c7;
-  --vp-c-brand-2: #0369a1;
-  --vp-c-brand-3: #075985;
-  --vp-c-brand-soft: rgba(2, 132, 199, 0.1);
+  --vp-c-brand-1: #E53935;
+  --vp-c-brand-2: #D32F2F;
+  --vp-c-brand-3: #C62828;
+  --vp-c-brand-soft: rgba(229, 57, 53, 0.1);
+
+  /* Fundo claro levemente quente (creme #EBE1D8) */
+  --vp-c-bg: #fdfbf9;
+  --vp-c-bg-alt: #f6efe8;
+  --vp-c-bg-soft: #f4ece4;
+  --vp-c-bg-mute: #ebe1d8;
+  --vp-c-divider: rgba(229, 57, 53, 0.12);
 }
 
 /* ── Brand Colors (dark mode) ── */
 .dark {
-  --vp-c-brand-1: #38bdf8;
-  --vp-c-brand-2: #7dd3fc;
-  --vp-c-brand-3: #bae6fd;
-  --vp-c-brand-soft: rgba(56, 189, 248, 0.1);
+  --vp-c-brand-1: #FF5A52;
+  --vp-c-brand-2: #E53935;
+  --vp-c-brand-3: #E53935;
+  --vp-c-brand-soft: rgba(229, 57, 53, 0.16);
+
+  /* Fundo escuro profundo dos slides */
+  --vp-c-bg: #1B1B1D;
+  --vp-c-bg-alt: #202022;
+  --vp-c-bg-elv: #252628;
+  --vp-c-bg-soft: #252628;
+  --vp-c-bg-mute: #2f3033;
+  --vp-c-divider: rgba(229, 57, 53, 0.14);
+
+  --vp-c-text-1: #D6D6D6;
+  --vp-c-text-2: #8C8C8C;
+  --vp-c-text-3: #5a5a5c;
 }
 
 /* ── Hero: título com gradiente ── */
 :root {
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: linear-gradient(135deg, #0284c7 0%, #10b981 100%);
+  --vp-home-hero-name-background: linear-gradient(135deg, #E53935 0%, #FF5A52 100%);
   --vp-home-hero-image-background-image: radial-gradient(
     ellipse 65% 65% at 50% 50%,
-    rgba(2, 132, 199, 0.18) 0%,
+    rgba(229, 57, 53, 0.18) 0%,
     transparent 70%
   );
   --vp-home-hero-image-filter: blur(52px);
 }
 
 .dark {
-  --vp-home-hero-name-background: linear-gradient(135deg, #38bdf8 0%, #34d399 100%);
+  --vp-home-hero-name-background: linear-gradient(135deg, #FF5A52 0%, #E53935 100%);
   --vp-home-hero-image-background-image: radial-gradient(
     ellipse 65% 65% at 50% 50%,
-    rgba(56, 189, 248, 0.18) 0%,
+    rgba(255, 90, 82, 0.2) 0%,
     transparent 70%
   );
 }
 
-/* ── Dark mode: fundo mais profundo ── */
-.dark {
-  --vp-c-bg: #0d1117;
-  --vp-c-bg-soft: #161b22;
-  --vp-c-bg-mute: #1c2333;
-  --vp-c-divider: rgba(56, 189, 248, 0.1);
+/* Brilhos radiais vermelhos no fundo da home (igual slides) */
+.dark .VPHome {
+  background:
+    radial-gradient(52% 62% at 86% 6%, rgba(229, 57, 53, 0.14), transparent 60%),
+    radial-gradient(50% 62% at 6% 12%, rgba(229, 57, 53, 0.12), transparent 60%);
 }
 
 /* ════════════════════════════════════════
@@ -60,14 +100,14 @@
 }
 
 .dark .VPNav {
-  background: rgba(13, 17, 23, 0.85) !important;
+  background: rgba(27, 27, 29, 0.85) !important;
 }
 
 /* Nome do site no nav: gradiente sutil */
 .VPNavBarTitle .title {
   font-weight: 700 !important;
   font-size: 1rem !important;
-  background: linear-gradient(135deg, #0284c7, #10b981);
+  background: linear-gradient(135deg, #E53935, #FF5A52);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -75,7 +115,7 @@
 }
 
 .dark .VPNavBarTitle .title {
-  background: linear-gradient(135deg, #38bdf8, #34d399);
+  background: linear-gradient(135deg, #FF5A52, #E53935);
   -webkit-background-clip: text;
   background-clip: text;
 }
@@ -130,18 +170,19 @@
 ════════════════════════════════════════ */
 
 .VPButton.medium.brand {
-  background: linear-gradient(135deg, #0284c7, #0369a1) !important;
+  background: linear-gradient(135deg, #E53935, #FF5A52) !important;
   border: none !important;
+  color: #fff !important;
   font-weight: 600 !important;
   letter-spacing: 0.02em;
-  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+  box-shadow: 0 4px 14px rgba(229, 57, 53, 0.35);
   transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s !important;
 }
 
 .VPButton.medium.brand:hover {
-  opacity: 0.9 !important;
+  opacity: 0.92 !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45) !important;
+  box-shadow: 0 6px 20px rgba(229, 57, 53, 0.45) !important;
 }
 
 .VPButton.medium.alt {
@@ -170,14 +211,19 @@
   border-radius: 14px !important;
 }
 
+/* Cards com gradiente sutil no dark (igual painéis dos slides) */
+.dark .VPFeature {
+  background: linear-gradient(145deg, #2c2d30, #212224) !important;
+}
+
 .VPFeature:hover {
   transform: translateY(-5px) !important;
   border-color: var(--vp-c-brand-1) !important;
-  box-shadow: 0 12px 32px rgba(2, 132, 199, 0.13) !important;
+  box-shadow: 0 12px 32px rgba(229, 57, 53, 0.13) !important;
 }
 
 .dark .VPFeature:hover {
-  box-shadow: 0 12px 32px rgba(56, 189, 248, 0.11) !important;
+  box-shadow: 0 12px 32px rgba(229, 57, 53, 0.22) !important;
 }
 
 .VPFeature .icon {
@@ -226,8 +272,8 @@ div[class*='language-'] {
 }
 
 .dark div[class*='language-'] {
-  background-color: #0d1117 !important;
-  border-color: rgba(56, 189, 248, 0.12) !important;
+  background-color: #161618 !important;
+  border-color: rgba(229, 57, 53, 0.12) !important;
 }
 
 /* Código inline */
@@ -266,7 +312,7 @@ div[class*='language-'] {
 }
 
 .custom-block.info {
-  border-color: #38bdf8 !important;
+  border-color: #FF5A52 !important;
 }
 
 .custom-block.warning {

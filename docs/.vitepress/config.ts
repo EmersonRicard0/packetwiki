@@ -8,7 +8,7 @@ export default defineConfig({
 
   head: [
     ['link', { rel: 'icon', href: '/logo.svg' }],
-    ['meta', { name: 'theme-color', content: '#0ea5e9' }],
+    ['meta', { name: 'theme-color', content: '#E53935' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: 'PacketWiki' }],
     ['meta', { property: 'og:title', content: 'PacketWiki — Wiki Técnica de Redes' }],

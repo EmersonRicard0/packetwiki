@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
   <defs>
     <linearGradient id="a" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#0ea5e9"/>
-      <stop offset="100%" stop-color="#10b981"/>
+      <stop offset="0%" stop-color="#FF5A52"/>
+      <stop offset="100%" stop-color="#E53935"/>
     </linearGradient>
     <filter id="g" x="-40%" y="-40%" width="180%" height="180%">
       <feGaussianBlur stdDeviation="1.5" result="b"/>
@@ -13,27 +13,27 @@
   <!-- Hub lines -->
   <line x1="32" y1="14" x2="14" y2="38" stroke="url(#a)" stroke-width="2.2" stroke-linecap="round" opacity="0.7"/>
   <line x1="32" y1="14" x2="50" y2="38" stroke="url(#a)" stroke-width="2.2" stroke-linecap="round" opacity="0.7"/>
-  <line x1="14" y1="38" x2="32" y2="52" stroke="#10b981" stroke-width="2.2" stroke-linecap="round" opacity="0.75"/>
-  <line x1="50" y1="38" x2="32" y2="52" stroke="#10b981" stroke-width="2.2" stroke-linecap="round" opacity="0.75"/>
-  <line x1="14" y1="38" x2="50" y2="38" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
+  <line x1="14" y1="38" x2="32" y2="52" stroke="#E53935" stroke-width="2.2" stroke-linecap="round" opacity="0.75"/>
+  <line x1="50" y1="38" x2="32" y2="52" stroke="#E53935" stroke-width="2.2" stroke-linecap="round" opacity="0.75"/>
+  <line x1="14" y1="38" x2="50" y2="38" stroke="#FF5A52" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
 
   <!-- Top node -->
-  <circle cx="32" cy="14" r="7" fill="#0ea5e9" opacity="0.18" filter="url(#g)"/>
-  <circle cx="32" cy="14" r="5" fill="#0ea5e9" filter="url(#g)"/>
-  <circle cx="32" cy="14" r="2.2" fill="#e0f2fe"/>
+  <circle cx="32" cy="14" r="7" fill="#FF5A52" opacity="0.18" filter="url(#g)"/>
+  <circle cx="32" cy="14" r="5" fill="#FF5A52" filter="url(#g)"/>
+  <circle cx="32" cy="14" r="2.2" fill="#ffe3e0"/>
 
   <!-- Left node -->
-  <circle cx="14" cy="38" r="6" fill="#3b82f6" opacity="0.2"/>
-  <circle cx="14" cy="38" r="4.2" fill="#3b82f6"/>
-  <circle cx="14" cy="38" r="1.8" fill="#bfdbfe"/>
+  <circle cx="14" cy="38" r="6" fill="#E53935" opacity="0.2"/>
+  <circle cx="14" cy="38" r="4.2" fill="#E53935"/>
+  <circle cx="14" cy="38" r="1.8" fill="#ffcdc9"/>
 
   <!-- Right node -->
-  <circle cx="50" cy="38" r="6" fill="#3b82f6" opacity="0.2"/>
-  <circle cx="50" cy="38" r="4.2" fill="#3b82f6"/>
-  <circle cx="50" cy="38" r="1.8" fill="#bfdbfe"/>
+  <circle cx="50" cy="38" r="6" fill="#E53935" opacity="0.2"/>
+  <circle cx="50" cy="38" r="4.2" fill="#E53935"/>
+  <circle cx="50" cy="38" r="1.8" fill="#ffcdc9"/>
 
   <!-- Bottom node -->
-  <circle cx="32" cy="52" r="6" fill="#10b981" opacity="0.2" filter="url(#g)"/>
-  <circle cx="32" cy="52" r="4.2" fill="#10b981" filter="url(#g)"/>
-  <circle cx="32" cy="52" r="1.8" fill="#a7f3d0"/>
+  <circle cx="32" cy="52" r="6" fill="#E53935" opacity="0.2" filter="url(#g)"/>
+  <circle cx="32" cy="52" r="4.2" fill="#E53935" filter="url(#g)"/>
+  <circle cx="32" cy="52" r="1.8" fill="#ffb3ad"/>
 </svg>

@@ -62,7 +62,7 @@
           >
             <div v-if="msg.role === 'assistant'" class="msg-avatar">
   <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-    <path d="M12 2L14.4 9.6H22.4L16 14.2L18.4 21.8L12 17.2L5.6 21.8L8 14.2L1.6 9.6H9.6L12 2Z" fill="#0284c7"/>
+    <path d="M12 2L14.4 9.6H22.4L16 14.2L18.4 21.8L12 17.2L5.6 21.8L8 14.2L1.6 9.6H9.6L12 2Z" fill="#E53935"/>
   </svg>
 </div>
             <div class="msg-bubble" v-html="renderMarkdown(msg.content)"></div>
@@ -72,7 +72,7 @@
           <div v-if="isLoading" class="msg-row assistant">
             <div class="msg-avatar">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-              <path d="M12 2L14.4 9.6H22.4L16 14.2L18.4 21.8L12 17.2L5.6 21.8L8 14.2L1.6 9.6H9.6L12 2Z" fill="#0284c7"/>
+              <path d="M12 2L14.4 9.6H22.4L16 14.2L18.4 21.8L12 17.2L5.6 21.8L8 14.2L1.6 9.6H9.6L12 2Z" fill="#E53935"/>
             </svg>
           </div>
             <div class="msg-bubble typing">
@@ -440,17 +440,17 @@ onUnmounted(() => {
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #0284c7, #10b981);
+  background: linear-gradient(135deg, #E53935, #FF5A52);
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 18px rgba(2, 132, 199, 0.45);
+  box-shadow: 0 4px 18px rgba(229, 57, 53, 0.45);
   transition: transform 0.2s, box-shadow 0.2s;
   z-index: 200;
 }
-.chat-fab:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(2, 132, 199, 0.55); }
+.chat-fab:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(229, 57, 53, 0.55); }
 .fab-icon { display: flex; align-items: center; justify-content: center; }
 .fab-close { font-size: 1rem; font-weight: 700; color: white; }
 .fab-badge {
@@ -494,7 +494,7 @@ onUnmounted(() => {
   align-items: center;
   justify-content: space-between;
   padding: 12px 16px;
-  background: linear-gradient(135deg, #0284c7, #0369a1);
+  background: linear-gradient(135deg, #E53935, #C62828);
   flex-shrink: 0;
 }
 .chat-header-info { display: flex; align-items: center; gap: 10px; }
@@ -606,7 +606,7 @@ onUnmounted(() => {
   color: var(--vp-c-text-1);
 }
 .user .msg-bubble {
-  background: linear-gradient(135deg, #0284c7, #0369a1);
+  background: linear-gradient(135deg, #E53935, #C62828);
   color: white;
   border-bottom-right-radius: 4px;
 }
@@ -676,7 +676,7 @@ onUnmounted(() => {
 .chat-send {
   width: 36px; height: 36px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #0284c7, #10b981);
+  background: linear-gradient(135deg, #E53935, #FF5A52);
   border: none;
   color: white;
   font-size: 0.9rem;
