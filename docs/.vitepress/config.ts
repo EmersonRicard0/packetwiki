@@ -14,14 +14,14 @@ export default defineConfig({
     ['meta', { property: 'og:site_name', content: 'ERtech' }],
     ['meta', { property: 'og:title', content: 'ERtech — Monitoramento, Alertas & Performance' }],
     ['meta', { property: 'og:description', content: 'Observabilidade de ponta a ponta para redes, servidores e infraestrutura crítica. Inclui a PacketWiki — base de conhecimento técnica.' }],
-    ['meta', { property: 'og:url', content: 'https://wiki.ertechnol.com.br' }],
-    ['meta', { property: 'og:image', content: 'https://wiki.ertechnol.com.br/hero.svg' }],
+    ['meta', { property: 'og:url', content: 'https://ertechnol.com.br' }],
+    ['meta', { property: 'og:image', content: 'https://ertechnol.com.br/hero.svg' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
-    ['meta', { name: 'twitter:image', content: 'https://wiki.ertechnol.com.br/hero.svg' }],
+    ['meta', { name: 'twitter:image', content: 'https://ertechnol.com.br/hero.svg' }],
   ],
 
   sitemap: {
-    hostname: 'https://wiki.ertechnol.com.br',
+    hostname: 'https://ertechnol.com.br',
   },
 
   lastUpdated: true,
@@ -30,7 +30,6 @@ export default defineConfig({
 
   themeConfig: {
     siteTitle: 'ERtech',
-    logo: '/logo.svg',
 
     nav: [
       { text: 'ERtech', link: '/' },

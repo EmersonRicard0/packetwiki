@@ -103,21 +103,26 @@
   background: rgba(27, 27, 29, 0.85) !important;
 }
 
-/* Nome do site no nav: gradiente sutil */
+/* Nome do site no nav: wordmark "ERtech" (ER vermelho + tech branco/tema) */
 .VPNavBarTitle .title {
-  font-weight: 700 !important;
-  font-size: 1rem !important;
-  background: linear-gradient(135deg, #E53935, #FF5A52);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -0.01em;
+  font-size: 0 !important; /* esconde o texto original "ERtech" */
+  line-height: 1;
+  letter-spacing: -0.02em;
 }
-
-.dark .VPNavBarTitle .title {
-  background: linear-gradient(135deg, #FF5A52, #E53935);
-  -webkit-background-clip: text;
-  background-clip: text;
+.VPNavBarTitle .title::before,
+.VPNavBarTitle .title::after {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  vertical-align: middle;
+}
+.VPNavBarTitle .title::before {
+  content: 'ER';
+  color: #E53935;
+}
+.VPNavBarTitle .title::after {
+  content: 'tech';
+  color: var(--vp-c-text-1);
 }
 
 /* Nav links: hover suave */
