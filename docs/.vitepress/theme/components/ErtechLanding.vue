@@ -192,8 +192,27 @@
     <section class="er-sec contato">
       <div class="er-kicker">08 — Contato</div>
       <h2 class="er-h2 big">Vamos colocar sua operação sob controle.</h2>
-      <div class="er-cta center">
-        <a class="er-btn primary lg" :href="mail"><i v-html="ic.mail"></i> Falar com a ERtech</a>
+
+      <form v-if="contactState !== 'ok'" class="er-form" @submit.prevent="sendContact">
+        <div class="er-form-row">
+          <input v-model="form.name" class="er-field" placeholder="Seu nome" autocomplete="name" />
+          <input v-model="form.email" type="email" class="er-field" placeholder="Seu e-mail" autocomplete="email" />
+        </div>
+        <input v-model="form.company" class="er-field" placeholder="Empresa (opcional)" autocomplete="organization" />
+        <textarea v-model="form.message" class="er-field" rows="4" placeholder="Como posso ajudar? (rede, monitoramento, automação...)"></textarea>
+        <input v-model="form._hp" class="er-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <p v-if="contactError" class="er-form-err">{{ contactError }}</p>
+        <div class="er-cta center">
+          <button type="submit" class="er-btn primary lg" :disabled="contactState === 'sending'">
+            <i v-html="ic.mail"></i> {{ contactState === 'sending' ? 'Enviando...' : 'Enviar mensagem' }}
+          </button>
+          <a class="er-btn ghost" :href="mail">Ou mande um e-mail direto</a>
+        </div>
+      </form>
+
+      <div v-else class="er-form-ok">
+        <span class="er-ico" v-html="ic.shield"></span>
+        <p>Mensagem enviada! Retorno em breve — obrigado pelo contato.</p>
       </div>
     </section>
 
@@ -211,7 +230,37 @@
 </template>
 
 <script setup>
+import { ref, reactive } from 'vue'
+
 const mail = 'mailto:silvaemerson797@gmail.com?subject=Contato%20ERtech'
+
+/* ── Formulário de contato ── */
+const form = reactive({ name: '', email: '', company: '', message: '', _hp: '' })
+const contactState = ref('idle') // idle | sending | ok
+const contactError = ref('')
+
+async function sendContact() {
+  contactError.value = ''
+  if (!form.name || !form.email || !form.message) {
+    contactError.value = 'Preencha nome, e-mail e mensagem.'
+    return
+  }
+  contactState.value = 'sending'
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form),
+    })
+    const data = await res.json().catch(() => ({}))
+    if (res.status === 404 || res.status === 405) throw new Error('O envio só funciona no site publicado.')
+    if (!res.ok || data.error) throw new Error(data.error || 'Não foi possível enviar.')
+    contactState.value = 'ok'
+  } catch (e) {
+    contactError.value = e.message
+    contactState.value = 'idle'
+  }
+}
 
 // ── Ícones (SVG stroke, herdam currentColor) ──
 const s = (p, extra = '') =>
@@ -633,6 +682,52 @@ const modulos = [
 /* CONTATO */
 .er-sec.contato { text-align: center; }
 .er-sec.contato .er-h2 { margin: 0 auto; }
+
+.er-form {
+  max-width: 560px;
+  margin: 28px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+.er-form-row { display: flex; gap: 12px; }
+.er-form-row .er-field { flex: 1; }
+.er-field {
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--tx);
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.er-field::placeholder { color: var(--tx2); }
+.er-field:focus { border-color: var(--coral); }
+textarea.er-field { resize: vertical; min-height: 96px; }
+.er-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.er-form-err { color: #ff6b6b; font-size: 0.88rem; margin: 2px 0 0; }
+.er-form .er-cta { margin-top: 8px; }
+.er-form-ok {
+  max-width: 520px;
+  margin: 28px auto 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-content: center;
+  padding: 20px 24px;
+  border-radius: 16px;
+  background: linear-gradient(160deg, rgba(44, 45, 48, 0.85), rgba(31, 32, 34, 0.85));
+  border: 1px solid var(--line);
+}
+.er-form-ok p { margin: 0; color: #fff; font-weight: 500; }
+
+@media (max-width: 560px) {
+  .er-form-row { flex-direction: column; }
+}
 
 /* FOOTER */
 .er-foot {

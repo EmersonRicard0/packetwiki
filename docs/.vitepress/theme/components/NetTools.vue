@@ -109,6 +109,79 @@
       </div>
     </div>
 
+    <!-- ══ MEU IP ══ -->
+    <div v-show="tab === 'whoami'" class="nt-panel">
+      <div class="nt-row">
+        <button class="nt-btn" @click="doWhoami" :disabled="whoamiLoading">
+          {{ whoamiLoading ? '...' : 'Mostrar meu IP' }}
+        </button>
+      </div>
+      <p v-if="whoamiError" class="nt-error">{{ whoamiError }}</p>
+      <div v-if="whoami" class="nt-result">
+        <div class="nt-grid">
+          <div v-for="row in whoamiRows" :key="row.k" class="nt-cell">
+            <span class="nt-k">{{ row.k }}</span>
+            <span class="nt-v">{{ row.v }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ HTTP / TLS ══ -->
+    <div v-show="tab === 'http'" class="nt-panel">
+      <label class="nt-label">URL ou domínio</label>
+      <div class="nt-row">
+        <input v-model="httpUrl" class="nt-input" placeholder="ertechnol.com.br" @keydown.enter="doHttp" spellcheck="false" />
+        <button class="nt-btn" @click="doHttp" :disabled="httpLoading">{{ httpLoading ? '...' : 'Checar' }}</button>
+      </div>
+      <p v-if="httpError" class="nt-error">{{ httpError }}</p>
+
+      <div v-if="httpResult" class="nt-result">
+        <div class="nt-grid">
+          <div class="nt-cell"><span class="nt-k">Status</span><span class="nt-v">{{ httpResult.status }} {{ httpResult.statusText }}</span></div>
+          <div class="nt-cell"><span class="nt-k">Tempo de resposta</span><span class="nt-v">{{ httpResult.responseTimeMs }} ms</span></div>
+          <div class="nt-cell"><span class="nt-k">HTTPS</span><span class="nt-v">{{ httpResult.https ? 'Sim' : 'Não' }}</span></div>
+          <div class="nt-cell"><span class="nt-k">Segurança</span><span class="nt-v">{{ httpResult.securityScore }}</span></div>
+          <div v-if="httpResult.server" class="nt-cell"><span class="nt-k">Servidor</span><span class="nt-v">{{ httpResult.server }}</span></div>
+          <div v-if="httpResult.redirected" class="nt-cell"><span class="nt-k">Redirecionou para</span><span class="nt-v" style="font-size:.8rem">{{ httpResult.finalUrl }}</span></div>
+        </div>
+
+        <div v-if="httpResult.cert" class="nt-grid" style="margin-top:10px">
+          <div class="nt-cell"><span class="nt-k">Certificado — emissor</span><span class="nt-v" style="font-size:.85rem">{{ httpResult.cert.issuer }}</span></div>
+          <div class="nt-cell"><span class="nt-k">Expira em</span><span class="nt-v">{{ httpResult.cert.notAfter }} ({{ httpResult.cert.daysLeft }} dias)</span></div>
+        </div>
+
+        <div class="nt-label" style="margin-top:14px">Cabeçalhos de segurança</div>
+        <div class="nt-tags">
+          <span v-for="s in httpResult.security" :key="s.label" class="nt-tag" :class="{ ok: s.present }">
+            {{ s.present ? '✓' : '✕' }} {{ s.label }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ E-MAIL SPF/DKIM/DMARC ══ -->
+    <div v-show="tab === 'email'" class="nt-panel">
+      <label class="nt-label">Domínio (seletor DKIM é opcional)</label>
+      <div class="nt-row">
+        <input v-model="emailDomain" class="nt-input" placeholder="ertechnol.com.br" @keydown.enter="doEmail" spellcheck="false" />
+        <input v-model="emailSelector" class="nt-input" style="max-width:150px;min-width:120px" placeholder="seletor DKIM" spellcheck="false" />
+        <button class="nt-btn" @click="doEmail" :disabled="emailLoading">{{ emailLoading ? '...' : 'Verificar' }}</button>
+      </div>
+      <p v-if="emailError" class="nt-error">{{ emailError }}</p>
+
+      <div v-if="emailResult" class="nt-result">
+        <div class="nt-grid">
+          <div class="nt-cell"><span class="nt-k">SPF</span><span class="nt-v">{{ emailResult.resumo.spf }}</span></div>
+          <div class="nt-cell"><span class="nt-k">DMARC</span><span class="nt-v">{{ emailResult.resumo.dmarc }}</span></div>
+          <div v-if="emailResult.dkim" class="nt-cell"><span class="nt-k">DKIM ({{ emailResult.dkim.selector }})</span><span class="nt-v">{{ emailResult.dkim.found ? 'encontrado' : 'ausente' }}</span></div>
+        </div>
+        <div v-if="emailResult.spf.record" class="nt-reg"><span class="nt-k">SPF</span><code>{{ emailResult.spf.record }}</code></div>
+        <div v-if="emailResult.dmarc.record" class="nt-reg"><span class="nt-k">DMARC</span><code>{{ emailResult.dmarc.record }}</code></div>
+        <div v-if="emailResult.dkim && emailResult.dkim.record" class="nt-reg"><span class="nt-k">DKIM</span><code>{{ emailResult.dkim.record }}</code></div>
+      </div>
+    </div>
+
     <p class="nt-note">
       DNS e ASN consultam serviços públicos (Cloudflare DoH e RIPEstat) via função serverless.
       Não funcionam no preview local — apenas no site publicado.
@@ -123,8 +196,19 @@ const tabs = [
   { id: 'subnet', label: 'Sub-rede IPv4' },
   { id: 'dns', label: 'DNS / nslookup' },
   { id: 'asn', label: 'ASN / IP' },
+  { id: 'whoami', label: 'Meu IP' },
+  { id: 'http', label: 'HTTP / TLS' },
+  { id: 'email', label: 'E-mail (SPF/DMARC)' },
 ]
 const tab = ref('subnet')
+
+async function callApi(path) {
+  const res = await fetch(path)
+  const data = await res.json().catch(() => ({}))
+  if (res.status === 404 || res.status === 405) throw new Error('Disponível apenas no site publicado.')
+  if (!res.ok || data.error) throw new Error(data.error || 'Falha na consulta.')
+  return data
+}
 
 /* ── Sub-rede IPv4 ── */
 const subnetInput = ref('')
@@ -214,12 +298,63 @@ async function doAsn() {
   if (!q) { asnError.value = 'Informe um ASN ou IP.'; return }
   asnError.value = ''; asnResult.value = null; asnLoading.value = true
   try {
-    const res = await fetch(`/api/asn?q=${encodeURIComponent(q)}`)
-    const data = await res.json()
-    if (res.status === 404 || res.status === 405) throw new Error('Disponível apenas no site publicado.')
-    if (!res.ok || data.error) throw new Error(data.error || 'Falha na consulta.')
-    asnResult.value = data
+    asnResult.value = await callApi(`/api/asn?q=${encodeURIComponent(q)}`)
   } catch (e) { asnError.value = e.message } finally { asnLoading.value = false }
+}
+
+/* ── Meu IP ── */
+const whoami = ref(null)
+const whoamiError = ref('')
+const whoamiLoading = ref(false)
+async function doWhoami() {
+  whoamiError.value = ''; whoami.value = null; whoamiLoading.value = true
+  try {
+    whoami.value = await callApi('/api/whoami')
+  } catch (e) { whoamiError.value = e.message } finally { whoamiLoading.value = false }
+}
+const whoamiRows = computed(() => {
+  const w = whoami.value
+  if (!w) return []
+  return [
+    { k: 'Endereço IP', v: w.ip || '—' },
+    { k: 'ASN', v: w.asn || '—' },
+    { k: 'Organização', v: w.org || '—' },
+    { k: 'País', v: w.country || '—' },
+    { k: 'Cidade', v: [w.city, w.region].filter(Boolean).join(', ') || '—' },
+    { k: 'Data center (colo)', v: w.colo || '—' },
+    { k: 'TLS', v: w.tlsVersion || '—' },
+    { k: 'HTTP', v: w.httpProtocol || '—' },
+  ]
+})
+
+/* ── HTTP / TLS ── */
+const httpUrl = ref('')
+const httpResult = ref(null)
+const httpError = ref('')
+const httpLoading = ref(false)
+async function doHttp() {
+  const u = httpUrl.value.trim()
+  if (!u) { httpError.value = 'Informe uma URL ou domínio.'; return }
+  httpError.value = ''; httpResult.value = null; httpLoading.value = true
+  try {
+    httpResult.value = await callApi(`/api/httpcheck?url=${encodeURIComponent(u)}`)
+  } catch (e) { httpError.value = e.message } finally { httpLoading.value = false }
+}
+
+/* ── E-mail SPF/DKIM/DMARC ── */
+const emailDomain = ref('')
+const emailSelector = ref('')
+const emailResult = ref(null)
+const emailError = ref('')
+const emailLoading = ref(false)
+async function doEmail() {
+  const d = emailDomain.value.trim()
+  if (!d) { emailError.value = 'Informe um domínio.'; return }
+  emailError.value = ''; emailResult.value = null; emailLoading.value = true
+  try {
+    const sel = emailSelector.value.trim()
+    emailResult.value = await callApi(`/api/email?domain=${encodeURIComponent(d)}${sel ? `&selector=${encodeURIComponent(sel)}` : ''}`)
+  } catch (e) { emailError.value = e.message } finally { emailLoading.value = false }
 }
 </script>
 
@@ -310,6 +445,15 @@ async function doAsn() {
   padding: 3px 9px; border-radius: 7px;
   background: var(--vp-c-bg-soft); border: 1px solid var(--vp-c-divider);
   color: var(--vp-c-text-1);
+}
+.nt-tag.ok { border-color: rgba(34, 197, 94, 0.5); color: #16a34a; }
+.dark .nt-tag.ok { color: #4ade80; }
+
+.nt-reg { margin-top: 10px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.nt-reg code {
+  font-family: var(--vp-font-family-mono); font-size: 0.78rem; word-break: break-all;
+  background: var(--vp-c-bg-soft); border: 1px solid var(--vp-c-divider);
+  padding: 2px 8px; border-radius: 6px; color: var(--vp-c-text-1);
 }
 
 .nt-note { margin-top: 20px; font-size: 0.78rem; color: var(--vp-c-text-3); line-height: 1.5; }
