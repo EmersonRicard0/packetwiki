@@ -6,12 +6,14 @@
     <!-- ══ HERO ══ -->
     <header class="er-hero">
       <div class="er-hero-text">
-        <div class="er-eyebrow">Monitoramento · Alertas · Performance</div>
-        <div class="er-wordmark"><span class="er-mark">ER</span><span class="er-tech">tech</span></div>
         <h1 class="er-tagline">
           Observabilidade de ponta a ponta para redes,
           servidores e infraestrutura crítica.
         </h1>
+        <p class="er-hero-sub">
+          Do backbone ao endpoint — monitoramento, alertas e performance,
+          com automação onde antes havia esforço manual.
+        </p>
 
         <div class="er-chips">
           <span class="er-chip"><i v-html="ic.noc"></i> NOC</span>
@@ -408,13 +410,20 @@ const modulos = [
 }
 .er-tagline {
   font-family: var(--disp);
-  font-weight: 500;
-  font-size: clamp(1.3rem, 3.4vw, 2.1rem);
-  line-height: 1.28;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  font-size: clamp(1.7rem, 4vw, 2.7rem);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
   color: #fff;
-  margin: 24px 0 0;
-  max-width: 640px;
+  margin: 0;
+  max-width: 620px;
+}
+.er-hero-sub {
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--tx2);
+  margin: 18px 0 0;
+  max-width: 520px;
 }
 .er-chips {
   display: flex;
@@ -646,6 +655,7 @@ const modulos = [
 
   .er-hero { grid-template-columns: 1fr; text-align: center; padding-top: clamp(48px, 8vh, 80px); }
   .er-hero-text { text-align: center; }
+  .er-hero-text .er-tagline, .er-hero-text .er-hero-sub { margin-left: auto; margin-right: auto; }
   .er-hero .er-chips, .er-hero .er-cta { justify-content: center; }
   .er-byline { justify-content: center; }
   .er-hero-visual { order: -1; }
