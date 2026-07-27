@@ -6,6 +6,7 @@
     <!-- ══ HERO ══ -->
     <header class="er-hero">
       <div class="er-hero-text">
+        <div class="er-wordmark"><span class="er-mark">ER</span><span class="er-tech">tech</span></div>
         <h1 class="er-tagline">
           Observabilidade de ponta a ponta para redes,
           servidores e infraestrutura crítica.
@@ -26,18 +27,6 @@
           <a class="er-btn primary" :href="mail"><i v-html="ic.mail"></i> Falar com a ERtech</a>
           <a class="er-btn ghost" href="/pt/"><i v-html="ic.book"></i> Acessar a Base de Conhecimento</a>
         </div>
-
-        <div class="er-byline">
-          <img class="er-avatar-img" src="/emerson-avatar.png" alt="Emerson Ricardo" width="46" height="46" />
-          <div>
-            <strong>Emerson Ricardo</strong>
-            <span>Arquiteto de Monitoramento &amp; Automação</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="er-hero-visual">
-        <img src="/ertech-badge.png" alt="ERtech — Monitoramento, Alertas & Performance" />
       </div>
     </header>
 
@@ -365,9 +354,6 @@ const modulos = [
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background:
-    radial-gradient(52% 50% at 86% 4%, rgba(229, 57, 53, 0.17), transparent 60%),
-    radial-gradient(48% 46% at 4% 10%, rgba(229, 57, 53, 0.14), transparent 60%);
 }
 .er > * { position: relative; z-index: 1; }
 
@@ -378,43 +364,21 @@ const modulos = [
   letter-spacing: -0.04em;
   line-height: 1;
 }
-.er-wordmark .er-mark { color: var(--coral); }
+.er-wordmark .er-mark { color: var(--red); }
 .er-wordmark .er-tech { color: #fff; }
 .er-wordmark.sm { font-size: 1.7rem; }
 
 /* HERO */
 .er-hero {
-  max-width: 1120px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: clamp(56px, 10vh, 110px) 24px 60px;
-  display: grid;
-  grid-template-columns: 1.12fr 0.88fr;
-  align-items: center;
-  gap: 44px;
+  padding: clamp(72px, 13vh, 150px) 24px 72px;
+  text-align: center;
 }
-.er-hero-text { text-align: left; }
-.er-hero-visual { display: flex; justify-content: center; }
-.er-hero-visual img {
-  width: 100%;
-  max-width: 380px;
-  height: auto;
-  border-radius: 26px;
-  filter: drop-shadow(0 22px 55px rgba(229, 57, 53, 0.3));
-  animation: floatBadge 6s ease-in-out infinite;
-}
-@keyframes floatBadge {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-14px); }
-}
-.er-avatar-img {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: top center;
-  border: 2px solid var(--coral);
-  flex-shrink: 0;
-}
+.er-hero-text { text-align: center; }
+.er-hero .er-wordmark { margin-bottom: 26px; }
+.er-hero .er-tagline, .er-hero .er-hero-sub { margin-left: auto; margin-right: auto; }
+.er-hero .er-chips, .er-hero .er-cta { justify-content: center; }
 
 /* IDENTIDADE (retrato + texto) */
 .er-identidade {
@@ -426,23 +390,8 @@ const modulos = [
 .er-portrait {
   display: flex;
   justify-content: center;
-  position: relative;
-}
-/* halo vermelho atrás do recorte transparente */
-.er-portrait::before {
-  content: '';
-  position: absolute;
-  width: 92%;
-  aspect-ratio: 1;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(229, 57, 53, 0.28), transparent 66%);
-  z-index: 0;
 }
 .er-portrait img {
-  position: relative;
-  z-index: 1;
   width: 100%;
   max-width: 330px;
   height: auto;
@@ -495,7 +444,7 @@ const modulos = [
   color: var(--tx);
   background: rgba(255, 255, 255, 0.03);
 }
-.er-chip.solid { background: linear-gradient(145deg, #2f3033, #232426); }
+.er-chip.solid { background: #2a2b2e; }
 .er-chip :deep(svg) { width: 15px; height: 15px; color: var(--coral); }
 
 .er-cta {
@@ -519,11 +468,11 @@ const modulos = [
 }
 .er-btn :deep(svg) { width: 18px; height: 18px; }
 .er-btn.primary {
-  background: linear-gradient(135deg, var(--red), var(--coral));
+  background: var(--red);
   color: #fff;
-  box-shadow: 0 6px 20px rgba(229, 57, 53, 0.35);
+  box-shadow: 0 6px 20px rgba(229, 57, 53, 0.3);
 }
-.er-btn.primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(229, 57, 53, 0.5); }
+.er-btn.primary:hover { background: #C62828; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(229, 57, 53, 0.45); }
 .er-btn.ghost { border: 1.5px solid var(--line); color: var(--tx); }
 .er-btn.ghost:hover { border-color: var(--coral); color: #fff; transform: translateY(-2px); }
 .er-btn.lg { padding: 16px 30px; font-size: 1.05rem; }
@@ -584,7 +533,7 @@ const modulos = [
 .er-grid.two { grid-template-columns: repeat(2, 1fr); }
 
 .er-card {
-  background: linear-gradient(160deg, rgba(44, 45, 48, 0.85), rgba(31, 32, 34, 0.85));
+  background: #232426;
   border: 1px solid var(--line);
   border-radius: 16px;
   padding: 22px;
@@ -638,11 +587,11 @@ const modulos = [
   text-align: center;
   padding: 26px 14px;
   border-radius: 16px;
-  background: linear-gradient(145deg, #2c2d30, #212224);
+  background: #232426;
   border: 1px solid var(--line);
 }
 .er-stat-v { font-family: var(--disp); font-weight: 700; font-size: clamp(1.8rem, 4vw, 2.6rem); color: #fff; letter-spacing: -0.03em; }
-.er-stat-v span { color: var(--coral); font-size: 0.55em; margin-left: 3px; }
+.er-stat-v span { color: var(--red); font-size: 0.55em; margin-left: 3px; }
 .er-stat-l { font-size: 0.82rem; color: var(--tx2); margin-top: 8px; }
 .er-note { font-family: var(--mono); font-size: 0.74rem; color: var(--tx2); margin-top: 16px; text-align: center; }
 
@@ -653,9 +602,7 @@ const modulos = [
   gap: 30px;
   padding: 34px;
   border-radius: 22px;
-  background:
-    radial-gradient(60% 80% at 100% 0%, rgba(229, 57, 53, 0.16), transparent 60%),
-    linear-gradient(145deg, #2c2d30, #202123);
+  background: #232426;
   border: 1px solid var(--line);
 }
 .er-module .er-kicker { margin-bottom: 10px; }
@@ -720,7 +667,7 @@ textarea.er-field { resize: vertical; min-height: 96px; }
   justify-content: center;
   padding: 20px 24px;
   border-radius: 16px;
-  background: linear-gradient(160deg, rgba(44, 45, 48, 0.85), rgba(31, 32, 34, 0.85));
+  background: #232426;
   border: 1px solid var(--line);
 }
 .er-form-ok p { margin: 0; color: #fff; font-weight: 500; }

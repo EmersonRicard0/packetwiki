@@ -404,7 +404,7 @@ async function doEmail() {
   padding: 10px 20px;
   border: none;
   border-radius: 10px;
-  background: linear-gradient(135deg, #E53935, #FF5A52);
+  background: #E53935;
   color: #fff;
   font-weight: 600;
   font-size: 0.9rem;
