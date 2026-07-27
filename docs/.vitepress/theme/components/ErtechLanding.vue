@@ -43,7 +43,7 @@
     <section class="er-sec">
       <div class="er-identidade">
         <div class="er-portrait">
-          <img src="/emerson-portrait.png" alt="Emerson Ricardo" />
+          <img src="/emerson-avatar.png" alt="Emerson Ricardo" />
         </div>
         <div class="er-identidade-text">
           <div class="er-kicker">01 — Identidade</div>
@@ -380,22 +380,21 @@ const modulos = [
 .er-portrait::before {
   content: '';
   position: absolute;
-  width: 78%;
+  width: 92%;
   aspect-ratio: 1;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -46%);
-  background: radial-gradient(circle, rgba(229, 57, 53, 0.22), transparent 68%);
-  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(229, 57, 53, 0.28), transparent 66%);
   z-index: 0;
 }
 .er-portrait img {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 300px;
+  max-width: 330px;
   height: auto;
-  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.55));
+  filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.45));
 }
 .er-identidade-text .er-lead { margin-top: 16px; }
 .er-identidade-text .er-chips { margin-top: 22px; }
