@@ -33,6 +33,7 @@ export default defineConfig({
 
     nav: [
       { text: 'ERtech', link: '/' },
+      { text: 'Serviços', link: '/pt/solucoes' },
       { text: 'Wiki', link: '/pt/' },
       {
         text: 'Documentação',
@@ -41,13 +42,14 @@ export default defineConfig({
           { text: 'Switches', link: '/pt/switches/' },
           { text: 'OLT / GPON', link: '/pt/olt/' },
           { text: 'Servidores Linux', link: '/pt/linux/' },
-          { text: 'Serviços', link: '/pt/servicos/' },
+          { text: 'Monitoramento & Serviços', link: '/pt/servicos/' },
           { text: 'Scripts', link: '/pt/scripts' },
           { text: 'Glossário', link: '/pt/glossario' },
+          { text: 'Contribuir', link: '/pt/contribuir' },
         ],
       },
       { text: 'Ferramentas', link: '/pt/ferramentas/' },
-      { text: 'Contribuir', link: '/pt/contribuir' },
+      { text: 'FAQ', link: '/pt/faq' },
       { text: 'Sobre', link: '/pt/sobre' },
       { text: 'Contato', link: 'mailto:silvaemerson797@gmail.com' },
     ],
