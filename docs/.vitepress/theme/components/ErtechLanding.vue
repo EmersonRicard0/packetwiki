@@ -26,7 +26,7 @@
         </div>
 
         <div class="er-byline">
-          <img class="er-avatar-img" src="/emerson-avatar.jpg" alt="Emerson Ricardo" width="46" height="46" />
+          <img class="er-avatar-img" src="/emerson-avatar.png" alt="Emerson Ricardo" width="46" height="46" />
           <div>
             <strong>Emerson Ricardo</strong>
             <span>Arquiteto de Monitoramento &amp; Automação</span>
@@ -35,7 +35,7 @@
       </div>
 
       <div class="er-hero-visual">
-        <img src="/ertech-badge.jpg" alt="ERtech — Monitoramento, Alertas & Performance" />
+        <img src="/ertech-badge.png" alt="ERtech — Monitoramento, Alertas & Performance" />
       </div>
     </header>
 
@@ -43,7 +43,7 @@
     <section class="er-sec">
       <div class="er-identidade">
         <div class="er-portrait">
-          <img src="/emerson-portrait.jpg" alt="Emerson Ricardo" />
+          <img src="/emerson-portrait.png" alt="Emerson Ricardo" />
         </div>
         <div class="er-identidade-text">
           <div class="er-kicker">01 — Identidade</div>
@@ -371,16 +371,31 @@ const modulos = [
   gap: 40px;
   align-items: center;
 }
-.er-portrait { display: flex; justify-content: center; }
+.er-portrait {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+/* halo vermelho atrás do recorte transparente */
+.er-portrait::before {
+  content: '';
+  position: absolute;
+  width: 78%;
+  aspect-ratio: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -46%);
+  background: radial-gradient(circle, rgba(229, 57, 53, 0.22), transparent 68%);
+  border-radius: 50%;
+  z-index: 0;
+}
 .er-portrait img {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 300px;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-  object-position: top center;
-  border-radius: 20px;
-  border: 1px solid var(--line);
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.4);
+  height: auto;
+  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.55));
 }
 .er-identidade-text .er-lead { margin-top: 16px; }
 .er-identidade-text .er-chips { margin-top: 22px; }
