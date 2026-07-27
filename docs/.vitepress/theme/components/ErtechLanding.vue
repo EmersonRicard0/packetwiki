@@ -288,6 +288,7 @@ const modulos = [
   { t: 'OLT / GPON', link: '/pt/olt/', icon: ic.fiber },
   { t: 'Servidores Linux', link: '/pt/linux/', icon: ic.server },
   { t: 'Serviços & Monitoramento', link: '/pt/servicos/', icon: ic.chart },
+  { t: 'Ferramentas de Rede', link: '/pt/ferramentas/', icon: ic.automation },
   { t: 'Glossário', link: '/pt/glossario', icon: ic.book },
 ]
 </script>

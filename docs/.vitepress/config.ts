@@ -46,6 +46,7 @@ export default defineConfig({
           { text: 'Glossário', link: '/pt/glossario' },
         ],
       },
+      { text: 'Ferramentas', link: '/pt/ferramentas/' },
       { text: 'Contribuir', link: '/pt/contribuir' },
       { text: 'Sobre', link: '/pt/sobre' },
       { text: 'Contato', link: 'mailto:silvaemerson797@gmail.com' },
