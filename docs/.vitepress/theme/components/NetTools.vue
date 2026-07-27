@@ -182,6 +182,84 @@
       </div>
     </div>
 
+    <!-- ══ VLSM ══ -->
+    <div v-show="tab === 'vlsm'" class="nt-panel">
+      <label class="nt-label">Bloco base (CIDR) e tamanhos de host</label>
+      <div class="nt-row">
+        <input v-model="vlsmBase" class="nt-input" style="max-width:200px" placeholder="10.0.0.0/24" spellcheck="false" />
+        <input v-model="vlsmHosts" class="nt-input" placeholder="50, 20, 10, 2" spellcheck="false" @keydown.enter="calcVlsm" />
+        <button class="nt-btn" @click="calcVlsm">Dividir</button>
+      </div>
+      <p v-if="vlsmError" class="nt-error">{{ vlsmError }}</p>
+      <div v-if="vlsmResult" class="nt-result">
+        <table class="nt-table">
+          <thead><tr><th>Precisa</th><th>Sub-rede</th><th>Máscara</th><th>Faixa útil</th><th>Broadcast</th><th>Hosts</th></tr></thead>
+          <tbody>
+            <tr v-for="(r, i) in vlsmResult" :key="i">
+              <td>{{ r.need }}</td><td class="nt-mono">{{ r.cidr }}</td><td class="nt-mono">{{ r.mask }}</td>
+              <td class="nt-mono">{{ r.range }}</td><td class="nt-mono">{{ r.broadcast }}</td><td>{{ r.hosts }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══ SUMARIZAÇÃO ══ -->
+    <div v-show="tab === 'summ'" class="nt-panel">
+      <label class="nt-label">CIDRs a agregar (um por linha)</label>
+      <textarea v-model="summInput" class="nt-input" rows="4" style="min-width:100%;font-family:var(--vp-font-family-mono)" spellcheck="false"></textarea>
+      <div class="nt-row" style="margin-top:8px"><button class="nt-btn" @click="calcSumm">Sumarizar</button></div>
+      <p v-if="summError" class="nt-error">{{ summError }}</p>
+      <div v-if="summResult" class="nt-result">
+        <div class="nt-grid">
+          <div class="nt-cell"><span class="nt-k">Supernet</span><span class="nt-v">{{ summResult.cidr }}</span></div>
+          <div class="nt-cell"><span class="nt-k">Máscara</span><span class="nt-v">{{ summResult.mask }}</span></div>
+          <div class="nt-cell"><span class="nt-k">Broadcast</span><span class="nt-v">{{ summResult.broadcast }}</span></div>
+          <div class="nt-cell"><span class="nt-k">Cobertura</span><span class="nt-v">{{ summResult.exact ? 'Exata' : 'Aproximada (inclui extras)' }}</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ IPv6 / EUI-64 ══ -->
+    <div v-show="tab === 'eui'" class="nt-panel">
+      <label class="nt-label">Endereço MAC</label>
+      <div class="nt-row">
+        <input v-model="euiMac" class="nt-input" placeholder="00:1A:2B:3C:4D:5E" spellcheck="false" @keydown.enter="calcEui" />
+        <button class="nt-btn" @click="calcEui">Gerar</button>
+      </div>
+      <p v-if="euiError" class="nt-error">{{ euiError }}</p>
+      <div v-if="euiResult" class="nt-result">
+        <div class="nt-grid">
+          <div class="nt-cell"><span class="nt-k">Interface ID (EUI-64)</span><span class="nt-v">{{ euiResult.eui64 }}</span></div>
+          <div class="nt-cell"><span class="nt-k">Link-local</span><span class="nt-v">{{ euiResult.linkLocal }}</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ ÓPTICO GPON ══ -->
+    <div v-show="tab === 'gpon'" class="nt-panel">
+      <div class="nt-grid" style="margin-bottom:12px">
+        <label class="nt-cell"><span class="nt-k">Potência OLT Tx (dBm)</span><input v-model="gTx" class="nt-input" /></label>
+        <label class="nt-cell"><span class="nt-k">Distância (km)</span><input v-model="gLen" class="nt-input" /></label>
+        <label class="nt-cell"><span class="nt-k">Atenuação (dB/km)</span><input v-model="gAtt" class="nt-input" /></label>
+        <label class="nt-cell"><span class="nt-k">Perdas conectores/emendas (dB)</span><input v-model="gConn" class="nt-input" /></label>
+        <label class="nt-cell"><span class="nt-k">Splitter</span>
+          <select v-model="gSplit" class="nt-select"><option v-for="s in splitRatios" :key="s" :value="s">{{ s }}</option></select>
+        </label>
+      </div>
+      <div class="nt-row"><button class="nt-btn" @click="calcGpon">Calcular orçamento</button></div>
+      <div v-if="gponResult" class="nt-result">
+        <p v-if="gponResult.error" class="nt-error">{{ gponResult.error }}</p>
+        <div v-else class="nt-grid">
+          <div class="nt-cell"><span class="nt-k">Perda fibra</span><span class="nt-v">{{ gponResult.fiber }} dB</span></div>
+          <div class="nt-cell"><span class="nt-k">Perda splitter</span><span class="nt-v">{{ gponResult.split }} dB</span></div>
+          <div class="nt-cell"><span class="nt-k">Perda total</span><span class="nt-v">{{ gponResult.total }} dB</span></div>
+          <div class="nt-cell"><span class="nt-k">Potência na ONU (Rx)</span><span class="nt-v">{{ gponResult.rx }} dBm</span></div>
+          <div class="nt-cell" style="grid-column:1/-1"><span class="nt-k">Status</span><span class="nt-v">{{ gponResult.status }}</span></div>
+        </div>
+      </div>
+    </div>
+
     <p class="nt-note">
       DNS e ASN consultam serviços públicos (Cloudflare DoH e RIPEstat) via função serverless.
       Não funcionam no preview local — apenas no site publicado.
@@ -199,6 +277,10 @@ const tabs = [
   { id: 'whoami', label: 'Meu IP' },
   { id: 'http', label: 'HTTP / TLS' },
   { id: 'email', label: 'E-mail (SPF/DMARC)' },
+  { id: 'vlsm', label: 'VLSM' },
+  { id: 'summ', label: 'Sumarização' },
+  { id: 'eui', label: 'IPv6 / EUI-64' },
+  { id: 'gpon', label: 'Óptico GPON' },
 ]
 const tab = ref('subnet')
 
@@ -355,6 +437,110 @@ async function doEmail() {
     const sel = emailSelector.value.trim()
     emailResult.value = await callApi(`/api/email?domain=${encodeURIComponent(d)}${sel ? `&selector=${encodeURIComponent(sel)}` : ''}`)
   } catch (e) { emailError.value = e.message } finally { emailLoading.value = false }
+}
+
+/* ── VLSM ── */
+const vlsmBase = ref('10.0.0.0/24')
+const vlsmHosts = ref('50, 20, 10, 2')
+const vlsmResult = ref(null)
+const vlsmError = ref('')
+function calcVlsm() {
+  vlsmError.value = ''; vlsmResult.value = null
+  const m = vlsmBase.value.trim().match(/^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s*\/\s*(\d{1,2})$/)
+  if (!m || +m[2] > 32) { vlsmError.value = 'Base no formato 10.0.0.0/24'; return }
+  const basePrefix = +m[2]
+  const reqs = vlsmHosts.value.split(/[,\s]+/).map((x) => parseInt(x, 10)).filter((x) => x > 0)
+  if (!reqs.length) { vlsmError.value = 'Informe os tamanhos (ex.: 50, 20, 10)'; return }
+  reqs.sort((a, b) => b - a)
+  const baseMask = basePrefix === 0 ? 0 : (0xffffffff << (32 - basePrefix)) >>> 0
+  let cursor = (ipToInt(m[1]) & baseMask) >>> 0
+  const baseEnd = (cursor | (~baseMask >>> 0)) >>> 0
+  const rows = []
+  for (const need of reqs) {
+    let h = 1; while ((2 ** h - 2) < need) h++
+    const pfx = 32 - h
+    const size = 2 ** h
+    const net = cursor
+    const bc = (net + size - 1) >>> 0
+    if (bc > baseEnd) { vlsmError.value = `Não cabe no bloco: /${pfx} para ${need} hosts excede a base.`; return }
+    rows.push({
+      need, cidr: `${intToIp(net)}/${pfx}`, mask: intToIp(pfx === 0 ? 0 : (0xffffffff << (32 - pfx)) >>> 0),
+      range: `${intToIp(net + 1)} – ${intToIp(bc - 1)}`, broadcast: intToIp(bc), hosts: size - 2,
+    })
+    cursor = (bc + 1) >>> 0
+  }
+  vlsmResult.value = rows
+}
+
+/* ── Sumarização de rotas ── */
+const summInput = ref('192.168.0.0/24\n192.168.1.0/24\n192.168.2.0/24\n192.168.3.0/24')
+const summResult = ref(null)
+const summError = ref('')
+function calcSumm() {
+  summError.value = ''; summResult.value = null
+  const lines = summInput.value.split(/[\n,]+/).map((s) => s.trim()).filter(Boolean)
+  if (!lines.length) { summError.value = 'Informe CIDRs (um por linha).'; return }
+  let lo = 0xffffffff, hi = 0
+  for (const l of lines) {
+    const m = l.match(/^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?:\/(\d{1,2}))?$/)
+    if (!m || (m[2] && +m[2] > 32)) { summError.value = 'Entrada inválida: ' + l; return }
+    const p = m[2] !== undefined ? +m[2] : 32
+    const mask = p === 0 ? 0 : (0xffffffff << (32 - p)) >>> 0
+    const net = (ipToInt(m[1]) & mask) >>> 0
+    const bc = (net | (~mask >>> 0)) >>> 0
+    if (net < lo) lo = net; if (bc > hi) hi = bc
+  }
+  let p = 32
+  while (p > 0) {
+    const mask = (0xffffffff << (32 - p)) >>> 0
+    if (((lo & mask) >>> 0) === ((hi & mask) >>> 0)) break
+    p--
+  }
+  const mask = p === 0 ? 0 : (0xffffffff << (32 - p)) >>> 0
+  const net = (lo & mask) >>> 0
+  const bc = (net | (~mask >>> 0)) >>> 0
+  summResult.value = {
+    cidr: `${intToIp(net)}/${p}`, mask: intToIp(mask), broadcast: intToIp(bc),
+    exact: net === lo && bc === hi,
+  }
+}
+
+/* ── IPv6 / EUI-64 ── */
+const euiMac = ref('')
+const euiResult = ref(null)
+const euiError = ref('')
+function calcEui() {
+  euiError.value = ''; euiResult.value = null
+  const mac = euiMac.value.trim().replace(/[.:-]/g, '')
+  if (!/^[0-9a-fA-F]{12}$/.test(mac)) { euiError.value = 'MAC inválido (ex.: 00:1A:2B:3C:4D:5E)'; return }
+  const b = mac.toLowerCase().match(/.{2}/g)
+  const first = (parseInt(b[0], 16) ^ 0x02).toString(16).padStart(2, '0')
+  const iid = [first, b[1], b[2], 'ff', 'fe', b[3], b[4], b[5]].join('')
+  const hextets = iid.match(/.{4}/g)
+  euiResult.value = {
+    eui64: hextets.join(':'),
+    linkLocal: 'fe80::' + hextets.map((h) => h.replace(/^0+/, '') || '0').join(':'),
+  }
+}
+
+/* ── Orçamento óptico GPON ── */
+const gTx = ref('3'); const gLen = ref('10'); const gAtt = ref('0.35'); const gSplit = ref('1:64'); const gConn = ref('1.5')
+const gponResult = ref(null)
+const splitRatios = ['1:2', '1:4', '1:8', '1:16', '1:32', '1:64', '1:128']
+const splitLoss = { '1:2': 3.5, '1:4': 7.0, '1:8': 10.5, '1:16': 14.0, '1:32': 17.5, '1:64': 21.0, '1:128': 24.5 }
+function calcGpon() {
+  const tx = parseFloat(gTx.value), len = parseFloat(gLen.value), att = parseFloat(gAtt.value), conn = parseFloat(gConn.value)
+  if ([tx, len, att, conn].some((n) => isNaN(n))) { gponResult.value = { error: 'Preencha os campos numéricos.' }; return }
+  const sl = splitLoss[gSplit.value] ?? 0
+  const fiber = len * att
+  const total = fiber + sl + conn
+  const rx = tx - total
+  const sens = -28, sat = -8
+  let status = 'OK — dentro da faixa'
+  if (rx < sens) status = 'FALHA — abaixo da sensibilidade (-28 dBm)'
+  else if (rx > sat) status = 'ALERTA — saturação (acima de -8 dBm)'
+  else if (rx < sens + 3) status = 'MARGEM BAIXA — menos de 3 dB de folga'
+  gponResult.value = { fiber: fiber.toFixed(2), split: sl.toFixed(1), conn: conn.toFixed(1), total: total.toFixed(2), rx: rx.toFixed(2), status }
 }
 </script>
 
