@@ -24,7 +24,7 @@ export default defineConfig({
     hostname: 'https://ertechnol.com.br',
   },
 
-  lastUpdated: true,
+  lastUpdated: false,
   cleanUrls: true,
   ignoreDeadLinks: true,
 
@@ -57,15 +57,6 @@ export default defineConfig({
     socialLinks: [
       { icon: 'github', link: 'https://github.com/EmersonRicard0/packetwiki' },
     ],
-
-    editLink: {
-      pattern: 'https://github.com/EmersonRicard0/packetwiki/edit/main/docs/:path',
-      text: 'Editar esta página no GitHub',
-    },
-
-    lastUpdated: {
-      text: 'Atualizado em',
-    },
 
     docFooter: {
       prev: 'Anterior',
