@@ -22,6 +22,7 @@ Guias de configuração para servidores Linux voltados para infraestrutura de re
 - DHCP (isc-dhcp / Kea)
 - DNS (BIND9 / Unbound)
 - NTP (chrony / ntpd)
+- Speedtest Ookla
 - VPN com WireGuard
 - VPN com OpenVPN
 - Proxy com Squid

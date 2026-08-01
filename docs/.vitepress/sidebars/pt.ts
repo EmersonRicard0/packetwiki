@@ -221,6 +221,7 @@ export const ptSidebar = {
       items: [
         { text: 'DHCP (isc-dhcp / Kea)', link: '/pt/linux/servicos/dhcp' },
         { text: 'VPN (WireGuard)', link: '/pt/linux/servicos/wireguard' },
+        { text: 'Speedtest Ookla', link: '/pt/linux/servicos/speedtest-ookla' },
       ],
     },
     {
