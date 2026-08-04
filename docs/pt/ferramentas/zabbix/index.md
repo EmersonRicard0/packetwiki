@@ -28,6 +28,26 @@ Suíte de utilitários para quem administra Zabbix — tudo roda no seu navegado
     <h3>Migrador entre Ambientes</h3>
     <p>Adapta um template de um ambiente para outro (PROD → HML) trocando hosts, grupos, macros e IPs.</p>
   </a>
+  <a class="ztool-card" href="/pt/ferramentas/zabbix/assistente-ia">
+    <span class="ico"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 0-3 3v1a3 3 0 0 0-3 3 3 3 0 0 0 0 6 3 3 0 0 0 3 3v1a3 3 0 0 0 6 0v-1a3 3 0 0 0 3-3 3 3 0 0 0 0-6 3 3 0 0 0-3-3V6a3 3 0 0 0-3-3z"/></svg></span>
+    <h3>Assistente com IA</h3>
+    <p>Descreva o que quer monitorar em linguagem natural e receba um template Zabbix pronto.</p>
+  </a>
+  <a class="ztool-card" href="/pt/ferramentas/zabbix/explicador">
+    <span class="ico"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+    <h3>Explicador com IA</h3>
+    <p>Envie um template e receba a explicação de cada item, trigger e macro — com perguntas adicionais.</p>
+  </a>
+  <a class="ztool-card" href="/pt/ferramentas/zabbix/plugins">
+    <span class="ico"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v6M6 21v-6"/><rect x="3" y="9" width="6" height="6" rx="1"/><path d="M18 3v4a4 4 0 0 1-4 4h-2"/><rect x="15" y="15" width="6" height="6" rx="1"/></svg></span>
+    <h3>Plugins do Conversor</h3>
+    <p>Instale regras de conversão da comunidade (JSON) que estendem o conversor de templates.</p>
+  </a>
+  <a class="ztool-card" href="/pt/ferramentas/zabbix/exportador-iac">
+    <span class="ico"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg></span>
+    <h3>Exportador Terraform/Ansible</h3>
+    <p>Gera código Terraform (provider zabbix) ou Ansible (community.zabbix) a partir do template.</p>
+  </a>
 </div>
 
 ::: tip Client-side

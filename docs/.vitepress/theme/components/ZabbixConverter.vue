@@ -64,6 +64,7 @@
 import { ref, computed } from 'vue'
 import { detectFormat, parseTemplate, serializeTemplate, extFor } from '../../../src/lib/zabbix-parser.js'
 import { convertTemplate, VERSIONS } from '../../../src/lib/zabbix-converter.js'
+import { applyPlugins } from '../../../src/lib/zabbix-plugins.js'
 
 const versions = VERSIONS
 const fileName = ref('')
@@ -103,7 +104,18 @@ async function convert() {
   try {
     const data = await parseTemplate(fileContent.value, detectedFormat.value)
     const { data: out, summary: sum } = convertTemplate(data, sourceVersion.value, targetVersion.value)
-    const output = await serializeTemplate(out, outputFormat.value)
+    let output = await serializeTemplate(out, outputFormat.value)
+    // aplica regras de plugins da comunidade (ativos no navegador)
+    const { text, applied } = applyPlugins(output)
+    output = text
+    if (applied.length) {
+      sum.changes.push({
+        type: 'plugins',
+        description: `${applied.length} regra(s) de plugin aplicada(s)`,
+        count: applied.length,
+        samples: applied.map((a) => ({ before: a.plugin, after: a.description })),
+      })
+    }
     const mime = outputFormat.value === 'json' ? 'application/json' : outputFormat.value === 'xml' ? 'application/xml' : 'text/yaml'
     download(output, `template_v${targetVersion.value}.${extFor(outputFormat.value)}`, mime)
     summary.value = sum

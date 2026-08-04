@@ -1,0 +1,30 @@
+[
+  {
+    "id": "http-agent-6.0",
+    "name": "HTTP agent: web.page.get → HTTP agent",
+    "version": "1.0.0",
+    "description": "Ajusta chaves web.page.* antigas para o novo item HTTP agent (exemplo comunitário).",
+    "rules": [
+      {
+        "description": "web.page.get → http.agent (exemplo)",
+        "pattern": "web\\.page\\.get",
+        "flags": "g",
+        "replace": "http.agent"
+      }
+    ]
+  },
+  {
+    "id": "rename-app-tag",
+    "name": "Applications → Tags (limpeza)",
+    "version": "1.0.0",
+    "description": "Remove blocos <applications> remanescentes (substituídos por tags a partir do 5.4).",
+    "rules": [
+      {
+        "description": "remove <applications>...</applications>",
+        "pattern": "<applications>[\\s\\S]*?</applications>",
+        "flags": "g",
+        "replace": ""
+      }
+    ]
+  }
+]

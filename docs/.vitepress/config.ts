@@ -61,9 +61,13 @@ export default defineConfig({
           items: [
             { text: 'Visão geral', link: '/pt/ferramentas/zabbix/' },
             { text: 'Conversor de Templates', link: '/pt/ferramentas/zabbix/conversor' },
+            { text: 'Assistente com IA', link: '/pt/ferramentas/zabbix/assistente-ia' },
+            { text: 'Explicador com IA', link: '/pt/ferramentas/zabbix/explicador' },
             { text: 'Validador de Regex', link: '/pt/ferramentas/zabbix/validador-regex' },
             { text: 'Calculadora de Macros', link: '/pt/ferramentas/zabbix/calculadora-macros' },
             { text: 'Migrador entre Ambientes', link: '/pt/ferramentas/zabbix/migrador' },
+            { text: 'Plugins do Conversor', link: '/pt/ferramentas/zabbix/plugins' },
+            { text: 'Exportador Terraform/Ansible', link: '/pt/ferramentas/zabbix/exportador-iac' },
           ],
         },
       ],
