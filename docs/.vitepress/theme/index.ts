@@ -2,6 +2,10 @@ import DefaultTheme from 'vitepress/theme'
 import { h } from 'vue'
 import GiscusComments from './components/GiscusComments.vue'
 import WikiChat from './components/WikiChat.vue'
+import ZabbixConverter from './components/ZabbixConverter.vue'
+import ZabbixRegexTester from './components/ZabbixRegexTester.vue'
+import ZabbixMacroCalc from './components/ZabbixMacroCalc.vue'
+import ZabbixMigrator from './components/ZabbixMigrator.vue'
 import './custom.css'
 
 export default {
@@ -11,5 +15,11 @@ export default {
       'doc-after': () => h(GiscusComments),
       'layout-bottom': () => h(WikiChat),
     })
+  },
+  enhanceApp({ app }) {
+    app.component('ZabbixConverter', ZabbixConverter)
+    app.component('ZabbixRegexTester', ZabbixRegexTester)
+    app.component('ZabbixMacroCalc', ZabbixMacroCalc)
+    app.component('ZabbixMigrator', ZabbixMigrator)
   },
 }

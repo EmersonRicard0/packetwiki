@@ -54,7 +54,21 @@ export default defineConfig({
       { text: 'Contato', link: 'mailto:silvaemerson797@gmail.com' },
     ],
 
-    sidebar: ptSidebar,
+    sidebar: {
+      '/pt/ferramentas/zabbix/': [
+        {
+          text: 'Ferramentas Zabbix',
+          items: [
+            { text: 'Visão geral', link: '/pt/ferramentas/zabbix/' },
+            { text: 'Conversor de Templates', link: '/pt/ferramentas/zabbix/conversor' },
+            { text: 'Validador de Regex', link: '/pt/ferramentas/zabbix/validador-regex' },
+            { text: 'Calculadora de Macros', link: '/pt/ferramentas/zabbix/calculadora-macros' },
+            { text: 'Migrador entre Ambientes', link: '/pt/ferramentas/zabbix/migrador' },
+          ],
+        },
+      ],
+      ...ptSidebar,
+    },
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/EmersonRicard0/packetwiki' },
