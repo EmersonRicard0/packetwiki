@@ -15,12 +15,17 @@ function json(obj, status = 200) {
 }
 
 const PROMPTS = {
-  generate: `Você é um especialista em Zabbix. A partir da descrição do usuário, gere um template de export do Zabbix 6.0 COMPLETO e VÁLIDO no formato YAML.
-Regras:
-- Responda APENAS com o YAML do template (comece em "zabbix_export:"), sem cercas de código markdown, sem explicações.
-- Use a sintaxe de trigger do 6.0+: func(/Template/key). Inclua uuid (32 hex) em template, items e triggers.
-- Crie items e triggers coerentes com o que foi pedido (CPU, disco, memória, ping, HTTP etc.).
-- Use macros ({$MACRO}) para limiares quando fizer sentido.`,
+  generate: `Você é um engenheiro Zabbix sênior. Gere um template de export do Zabbix 6.0 COMPLETO, RICO e VÁLIDO em YAML a partir da descrição do usuário.
+
+Responda APENAS com o YAML (comece em "zabbix_export:"), sem cercas de markdown e sem explicações.
+
+Exigências de QUALIDADE (não gere algo básico):
+- Crie de 5 a 12 items relevantes ao contexto, cada um com: uuid (32 hex), name, type (ZABBIX_ACTIVE por padrão), key, delay, value_type (FLOAT/UNSIGNED/CHAR/TEXT), units quando fizer sentido (%, B, bps, s), history, trends e tags (component/...).
+- Sempre inclua items de base: disponibilidade do agente (zabbix[host,agent,available]), uptime (system.uptime), e nome do host (system.hostname).
+- Crie triggers com: uuid, expression na sintaxe 6.0+ (ex.: min(/Template/key,5m)>{$MACRO}), name descritivo, priority (INFO/WARNING/AVERAGE/HIGH/DISASTER) e description explicando o problema. Use período (ex.: 5m) para evitar flapping.
+- Use macros {$MACRO} com value e description para todos os limiares.
+- Inclua template.description, groups (Templates/...) e tags no nível do template.
+- Coerência total com o pedido (CPU, memória, disco, rede, serviços, HTTP, banco, etc.).`,
   explain: `Você é um especialista em Zabbix. Explique o template abaixo em português do Brasil, de forma clara e organizada:
 - Visão geral do que o template monitora.
 - Liste os principais items (o que cada um coleta).

@@ -1,6 +1,6 @@
 <template>
   <div class="nt">
-    <div class="nt-tabs">
+    <div v-if="tabs.length > 1" class="nt-tabs">
       <button
         v-for="t in tabs"
         :key="t.id"
@@ -270,7 +270,11 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-const tabs = [
+// `only` limita quais ferramentas aparecem (usado nas subpáginas).
+// Aceita uma string ('dns') ou lista (['subnet','vlsm','summ']).
+const props = defineProps({ only: { type: [String, Array], default: null } })
+
+const allTabs = [
   { id: 'subnet', label: 'Sub-rede IPv4' },
   { id: 'dns', label: 'DNS / nslookup' },
   { id: 'asn', label: 'ASN / IP' },
@@ -282,7 +286,9 @@ const tabs = [
   { id: 'eui', label: 'IPv6 / EUI-64' },
   { id: 'gpon', label: 'Óptico GPON' },
 ]
-const tab = ref('subnet')
+const onlyIds = computed(() => (props.only ? (Array.isArray(props.only) ? props.only : [props.only]) : null))
+const tabs = computed(() => (onlyIds.value ? allTabs.filter((t) => onlyIds.value.includes(t.id)) : allTabs))
+const tab = ref(tabs.value[0]?.id || 'subnet')
 
 async function callApi(path) {
   const res = await fetch(path)

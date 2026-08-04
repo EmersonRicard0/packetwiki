@@ -2,6 +2,7 @@ import DefaultTheme from 'vitepress/theme'
 import { h } from 'vue'
 import GiscusComments from './components/GiscusComments.vue'
 import WikiChat from './components/WikiChat.vue'
+import NetTools from './components/NetTools.vue'
 import ZabbixConverter from './components/ZabbixConverter.vue'
 import ZabbixRegexTester from './components/ZabbixRegexTester.vue'
 import ZabbixMacroCalc from './components/ZabbixMacroCalc.vue'
@@ -21,6 +22,7 @@ export default {
     })
   },
   enhanceApp({ app }) {
+    app.component('NetTools', NetTools)
     app.component('ZabbixConverter', ZabbixConverter)
     app.component('ZabbixRegexTester', ZabbixRegexTester)
     app.component('ZabbixMacroCalc', ZabbixMacroCalc)

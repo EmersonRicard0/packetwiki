@@ -55,6 +55,22 @@ export default defineConfig({
     ],
 
     sidebar: {
+      '/pt/ferramentas/rede/': [
+        {
+          text: 'Ferramentas de Rede',
+          items: [
+            { text: 'Visão geral', link: '/pt/ferramentas/rede/' },
+            { text: 'Cálculo IPv4 (sub-rede, VLSM)', link: '/pt/ferramentas/rede/sub-rede' },
+            { text: 'IPv6 / EUI-64', link: '/pt/ferramentas/rede/ipv6' },
+            { text: 'DNS / nslookup', link: '/pt/ferramentas/rede/dns' },
+            { text: 'ASN / IP', link: '/pt/ferramentas/rede/asn' },
+            { text: 'HTTP / TLS', link: '/pt/ferramentas/rede/http-tls' },
+            { text: 'E-mail (SPF/DMARC)', link: '/pt/ferramentas/rede/email' },
+            { text: 'Meu IP', link: '/pt/ferramentas/rede/meu-ip' },
+            { text: 'Óptico GPON', link: '/pt/ferramentas/rede/gpon' },
+          ],
+        },
+      ],
       '/pt/ferramentas/zabbix/': [
         {
           text: 'Ferramentas Zabbix',
